@@ -6,7 +6,6 @@ $(document).ready(() => {
   // Calculate button triggers message packaging and sending
   $("#calculate").on("click", () => {
     // Package the message to send
-
     let messageToSend = {
       firstValue: parseInt($("#firstValue").val()),
       secondValue: parseInt($("#secondValue").val()),
@@ -18,11 +17,10 @@ $(document).ready(() => {
       type: "POST",
       url: "/calculate",
       data: JSON.stringify(messageToSend),
+      // contentType is not json by default: https://api.jquery.com/jQuery.ajax/
       contentType: "application/json; charset=utf-8",
       dataType: "json",
-      success: function (response) {
-        console.log(`In ajax success response: ${response}`);
-      },
+      success: function (response) {},
     });
 
     // Update the display
