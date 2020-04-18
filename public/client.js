@@ -14,17 +14,18 @@ $(document).ready(() => {
     };
 
     // POST the message to /calculate
-    $.post(
-      "/calculate",
-      messageToSend,
-      function (data) {
-        console.log(`Success. Data: ${data}`);
+    $.ajax({
+      type: "POST",
+      url: "/calculate",
+      data: JSON.stringify(messageToSend),
+      dataType: "json",
+      success: function (response) {
+        console.log(`In ajax success response: ${response}`);
       },
-      "json"
-    );
+    }).then(updateDisplay);
 
     // Update the display
-    updateDisplay();
+    // updateDisplay();
   });
 
   // Clear button clears the input fields
