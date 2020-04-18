@@ -1,16 +1,31 @@
 // Wait for DOM
 $(document).ready(() => {
-  // Calculate button calls the createMessage function
+  // Update the display
+  updateDisplay();
+
+  // Calculate button triggers message packaging and sending
   $("#calculate").on("click", () => {
-    function createMessage() {
-      return {
-        value1: $("#firstValue").val(),
-        value2: $("#secondValue").val(),
-        operation: $("#operation").val(),
-      };
-    }
-    // TODO: POST to /calculate
-    console.log(createMessage());
+    // Package the message to send
+    let messageToSend = {
+      value1: parseInt($("#firstValue").val()),
+      value2: parseInt($("#secondValue").val()),
+      operation: $("#operation").val(),
+    };
+
+    console.log(`messageToSend: ${messageToSend}`);
+
+    // Post the message
+    $.post(
+      "/calculate",
+      JSON.stringify(messageToSend),
+      function (data, textStatus, jqXHR) {
+        console.log(`Success. Data: ${data}`);
+      },
+      "application/json"
+    );
+
+    // Update the display
+    updateDisplay();
   });
 
   // Clear button clears the input fields
@@ -19,37 +34,42 @@ $(document).ready(() => {
     $("#secondValue").val("");
   });
 
-  // GET history from /history
-  $.getJSON("/history", (historyCollection) => {
-    // Iterate through each item
-    historyCollection.forEach((historyItem) => {
-      // Convert the operator into a math symbol (ie. +, -, *, /)
-      let operationAsAString = "";
-      switch (historyItem.operation) {
-        case "add":
-          operationAsAString = "+";
-          break;
-        case "subtract":
-          operationAsAString = "-";
-          break;
-        case "multiply":
-          operationAsAString = "*";
-          break;
-        case "divide":
-          operationAsAString = "/";
-          break;
+  // Clear output and display contents from server
+  function updateDisplay() {
+    // Clear output
+    $("#output").empty();
 
-        default:
-          operationAsAString = "💩";
-          break;
-      }
-      // Display the item
-      $("#output").append(
-        `<li class="list-group-item">${historyItem.value1}
+    // GET history from /history
+    $.getJSON("/history", (historyCollection) => {
+      // Iterate through each item
+      historyCollection.forEach((historyItem) => {
+        // Convert the operator into a math symbol (ie. +, -, *, /)
+        let operationAsAString = "";
+        switch (historyItem.operation) {
+          case "add":
+            operationAsAString = "+";
+            break;
+          case "subtract":
+            operationAsAString = "-";
+            break;
+          case "multiply":
+            operationAsAString = "*";
+            break;
+          case "divide":
+            operationAsAString = "/";
+            break;
+          default:
+            operationAsAString = "💩";
+            break;
+        }
+        // Display the item
+        $("#output").append(
+          `<li class="list-group-item">${historyItem.firstValue}
         ${operationAsAString}
-        ${historyItem.value2} =
-        ${historyItem.result}`
-      );
+        ${historyItem.secondValue} =
+        ${historyItem.result}</li>`
+        );
+      });
     });
-  });
+  }
 });

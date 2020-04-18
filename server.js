@@ -1,13 +1,14 @@
 const express = require("express");
 const app = express();
 const PORT = 3000;
+const { calculate } = require("./calculate");
 
 // History of operations
 const history = [
-  { value1: 10, value2: 1, operation: "add", result: 11 },
-  { value1: 20, value2: 2, operation: "subtract", result: 18 },
-  { value1: 30, value2: 3, operation: "multiply", result: 90 },
-  { value1: 40, value2: 4, operation: "divide", result: 10 },
+  { firstValue: 10, secondValue: 1, operation: "add", result: 11 },
+  { firstValue: 20, secondValue: 2, operation: "subtract", result: 18 },
+  { firstValue: 30, secondValue: 3, operation: "multiply", result: 90 },
+  { firstValue: 40, secondValue: 4, operation: "divide", result: 10 },
 ];
 
 // Middleware instantiate
@@ -22,11 +23,16 @@ app.get("/history", (req, res) => {
 
 // POST
 app.post("/calculate", (req, res) => {
+  // Push new object (with computed result) into the history array
   history.push({
-    value1: req.body.value1,
-    value2: req.body.value2,
+    firstValue: req.body.firstValue,
+    secondValue: req.body.secondValue,
     operation: req.body.operation,
-    result: 5000,
+    result: calculate(
+      req.body.firstValue,
+      req.body.secondValue,
+      req.body.operation
+    ),
   });
   // Send the history
   res.json(history);
