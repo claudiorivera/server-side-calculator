@@ -2,21 +2,25 @@ const express = require("express");
 const app = express();
 const PORT = 3000;
 
-// Array of operations
-const calculations = [{ value1: 10, value2: 10, operation: "add" }];
+// History of operations
+const history = [{ value1: 10, value2: 10, operation: "add", result: 30 }];
 
 // Middleware
 app.use(express.json());
 app.use(express.static("public"));
+
 // GET
-app.get("/", (req, res) => {
-  res.sendStatus(200);
+app.get("/history", (req, res) => {
+  // Send the history
+  res.json(history);
 });
 
 // POST
 app.post("/calculate", (req, res) => {
-  calculations.push(req.body);
-  res.json(calculations);
+  // Calculate and push new object to history
+  // TODO
+  // Send the history
+  res.json(history);
 });
 
 // Start server

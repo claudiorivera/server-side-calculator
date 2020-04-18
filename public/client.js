@@ -18,4 +18,6 @@ $(document).ready(() => {
     $("#firstValue").val("");
     $("#secondValue").val("");
   });
+
+  // TODO: GET history from server
 });
