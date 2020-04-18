@@ -24,6 +24,8 @@ app.get("/history", (req, res) => {
 // POST
 app.post("/calculate", (req, res) => {
   // Push new object (with computed result) into the history array
+  console.log(`req.body.firstValue: ${req.body.firstValue}`);
+
   history.push({
     firstValue: req.body.firstValue,
     secondValue: req.body.secondValue,
