@@ -1,28 +1,25 @@
-app.post("/calculate", (theMessageThatWasSent) => {
-  calculate(
-    theMessageThatWasSent.value1,
-    theMessageThatWasSent.value2,
-    theMessageThatWasSent.operation
-  );
-});
-function calculate(value1, value2, operation) {
-  switch (operation) {
-    case "add":
-      //DO THE ADDITION
-      return value1 + value2;
-      break;
-    case "subtract":
-      //DO THE subtration
-      break;
-    case "multiply":
-      //DO THE multip
-      break;
-    case "divide":
-      //DO THE div
-      break;
+const express = require("express");
+const app = express();
+const PORT = 3000;
 
-    default:
-      // YOU FUCKED UP
-      break;
-  }
-}
+// Array of operations
+const calculations = [{ value1: 10, value2: 10, operation: "add" }];
+
+// Middleware
+app.use(express.json());
+app.use(express.static("public"));
+// GET
+app.get("/", (req, res) => {
+  res.sendStatus(200);
+});
+
+// POST
+app.post("/calculate", (req, res) => {
+  calculations.push(req.body);
+  res.json(calculations);
+});
+
+// Start server
+app.listen(PORT, () => {
+  console.log(`Server started listening on port ${PORT}`);
+});
