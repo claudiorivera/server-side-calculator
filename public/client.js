@@ -9,7 +9,7 @@ $(document).ready(() => {
         operation: $("#operation").val(),
       };
     }
-    // TODO: POST to server
+    // TODO: POST to /calculate
     console.log(createMessage());
   });
 
@@ -19,5 +19,34 @@ $(document).ready(() => {
     $("#secondValue").val("");
   });
 
-  // TODO: GET history from server
+  // GET history from /history
+  $.getJSON("/history", (historyCollection) => {
+    historyCollection.forEach((historyItem) => {
+      let operationToString = "";
+      switch (historyItem.operation) {
+        case "add":
+          operationToString = "+";
+          break;
+        case "subtract":
+          operationToString = "-";
+          break;
+        case "multiply":
+          operationToString = "*";
+          break;
+        case "divide":
+          operationToString = "/";
+          break;
+
+        default:
+          operationToString = "???";
+          break;
+      }
+      $("#output").append(
+        `<li class="list-group-item">${historyItem.value1}
+        ${operationToString}
+        ${historyItem.value2} =
+        ${historyItem.result}`
+      );
+    });
+  });
 });
