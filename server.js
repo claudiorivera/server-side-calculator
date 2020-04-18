@@ -4,11 +4,7 @@ const PORT = 3000;
 const { calculate } = require("./calculate");
 
 // History of operations
-const history = [
-  { firstValue: 10, secondValue: 1, operation: "add", result: 11 },
-  { firstValue: 20, secondValue: 2, operation: "subtract", result: 18 },
-  { firstValue: 30, secondValue: 3, operation: "multiply", result: 90 },
-];
+const history = [];
 
 // Middleware
 app.use(express.json());
