@@ -11,7 +11,7 @@ const history = [
   { firstValue: 40, secondValue: 4, operation: "divide", result: 10 },
 ];
 
-// Middleware instantiate
+// Middleware
 app.use(express.json());
 app.use(express.static("public"));
 

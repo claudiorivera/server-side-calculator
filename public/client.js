@@ -6,18 +6,17 @@ $(document).ready(() => {
   // Calculate button triggers message packaging and sending
   $("#calculate").on("click", () => {
     // Package the message to send
-    let messageToSend = {
-      value1: parseInt($("#firstValue").val()),
-      value2: parseInt($("#secondValue").val()),
-      operation: $("#operation").val(),
-    };
 
-    console.log(`messageToSend: ${messageToSend}`);
+    let messageToSend = {
+      firstValue: 4,
+      secondValue: 20,
+      operation: "add",
+    };
 
     // Post the message
     $.post(
       "/calculate",
-      JSON.stringify(messageToSend),
+      messageToSend,
       function (data, textStatus, jqXHR) {
         console.log(`Success. Data: ${data}`);
       },
