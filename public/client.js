@@ -8,9 +8,9 @@ $(document).ready(() => {
     // Package the message to send
 
     let messageToSend = {
-      firstValue: 4,
-      secondValue: 20,
-      operation: "add",
+      firstValue: parseInt($("#firstValue").val()),
+      secondValue: parseInt($("#secondValue").val()),
+      operation: $("#operation").val(),
     };
 
     // POST the message to /calculate
@@ -18,14 +18,15 @@ $(document).ready(() => {
       type: "POST",
       url: "/calculate",
       data: JSON.stringify(messageToSend),
+      contentType: "application/json; charset=utf-8",
       dataType: "json",
       success: function (response) {
         console.log(`In ajax success response: ${response}`);
       },
-    }).then(updateDisplay);
+    });
 
     // Update the display
-    // updateDisplay();
+    updateDisplay();
   });
 
   // Clear button clears the input fields
