@@ -7,14 +7,16 @@ $(document).ready(() => {
   $("#calculate").on("click", () => {
     // Package the message to send
 
+    let messageToSend = {
+      firstValue: 4,
+      secondValue: 20,
+      operation: "add",
+    };
+
     // POST the message to /calculate
     $.post(
       "/calculate",
-      {
-        firstValue: 4,
-        secondValue: 20,
-        operation: "add",
-      },
+      messageToSend,
       function (data) {
         console.log(`Success. Data: ${data}`);
       },
