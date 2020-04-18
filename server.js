@@ -14,7 +14,6 @@ app.use(express.static("public"));
 app.get("/history", (req, res) => {
   // Send the history
   res.json(history);
-  res.statusCode(200);
 });
 
 // POST
@@ -32,7 +31,6 @@ app.post("/calculate", (req, res) => {
   });
   // Send the history
   res.json(history);
-  res.statusCode(200);
 });
 
 // Start server
