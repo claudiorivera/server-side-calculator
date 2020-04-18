@@ -13,11 +13,11 @@ $(document).ready(() => {
       operation: "add",
     };
 
-    // Post the message
+    // POST the message to /calculate
     $.post(
       "/calculate",
       messageToSend,
-      function (data, textStatus, jqXHR) {
+      function (data) {
         console.log(`Success. Data: ${data}`);
       },
       "json"
@@ -41,12 +41,12 @@ $(document).ready(() => {
     // GET history from /history
     $.get(
       "/history",
-      function (historyCollection) {
+      function (historyItems) {
         // Iterate through each item
-        historyCollection.forEach((historyItem) => {
+        historyItems.forEach((item) => {
           // Convert the operator into a math symbol (ie. +, -, *, /)
           let operationAsAString = "";
-          switch (historyItem.operation) {
+          switch (item.operation) {
             case "add":
               operationAsAString = "+";
               break;
@@ -65,10 +65,10 @@ $(document).ready(() => {
           }
           // Display the item
           $("#output").append(
-            `<li class="list-group-item">${historyItem.firstValue}
+            `<li class="list-group-item">${item.firstValue}
         ${operationAsAString}
-        ${historyItem.secondValue} =
-        ${historyItem.result}</li>`
+        ${item.secondValue} =
+        ${item.result}</li>`
           );
         });
       },
