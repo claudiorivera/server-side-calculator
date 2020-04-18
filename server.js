@@ -10,7 +10,7 @@ const history = [
   { value1: 40, value2: 4, operation: "divide", result: 10 },
 ];
 
-// Middleware
+// Middleware instantiate
 app.use(express.json());
 app.use(express.static("public"));
 
@@ -22,8 +22,12 @@ app.get("/history", (req, res) => {
 
 // POST
 app.post("/calculate", (req, res) => {
-  // Calculate and push new object to history
-  // TODO
+  history.push({
+    value1: req.body.value1,
+    value2: req.body.value2,
+    operation: req.body.operation,
+    result: 5000,
+  });
   // Send the history
   res.json(history);
 });

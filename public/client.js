@@ -21,29 +21,32 @@ $(document).ready(() => {
 
   // GET history from /history
   $.getJSON("/history", (historyCollection) => {
+    // Iterate through each item
     historyCollection.forEach((historyItem) => {
-      let operationToString = "";
+      // Convert the operator into a math symbol (ie. +, -, *, /)
+      let operationAsAString = "";
       switch (historyItem.operation) {
         case "add":
-          operationToString = "+";
+          operationAsAString = "+";
           break;
         case "subtract":
-          operationToString = "-";
+          operationAsAString = "-";
           break;
         case "multiply":
-          operationToString = "*";
+          operationAsAString = "*";
           break;
         case "divide":
-          operationToString = "/";
+          operationAsAString = "/";
           break;
 
         default:
-          operationToString = "???";
+          operationAsAString = "💩";
           break;
       }
+      // Display the item
       $("#output").append(
         `<li class="list-group-item">${historyItem.value1}
-        ${operationToString}
+        ${operationAsAString}
         ${historyItem.value2} =
         ${historyItem.result}`
       );
