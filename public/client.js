@@ -20,7 +20,7 @@ $(document).ready(() => {
       function (data, textStatus, jqXHR) {
         console.log(`Success. Data: ${data}`);
       },
-      "application/json"
+      "json"
     );
 
     // Update the display
@@ -39,36 +39,40 @@ $(document).ready(() => {
     $("#output").empty();
 
     // GET history from /history
-    $.getJSON("/history", (historyCollection) => {
-      // Iterate through each item
-      historyCollection.forEach((historyItem) => {
-        // Convert the operator into a math symbol (ie. +, -, *, /)
-        let operationAsAString = "";
-        switch (historyItem.operation) {
-          case "add":
-            operationAsAString = "+";
-            break;
-          case "subtract":
-            operationAsAString = "-";
-            break;
-          case "multiply":
-            operationAsAString = "*";
-            break;
-          case "divide":
-            operationAsAString = "/";
-            break;
-          default:
-            operationAsAString = "💩";
-            break;
-        }
-        // Display the item
-        $("#output").append(
-          `<li class="list-group-item">${historyItem.firstValue}
+    $.get(
+      "/history",
+      function (historyCollection) {
+        // Iterate through each item
+        historyCollection.forEach((historyItem) => {
+          // Convert the operator into a math symbol (ie. +, -, *, /)
+          let operationAsAString = "";
+          switch (historyItem.operation) {
+            case "add":
+              operationAsAString = "+";
+              break;
+            case "subtract":
+              operationAsAString = "-";
+              break;
+            case "multiply":
+              operationAsAString = "*";
+              break;
+            case "divide":
+              operationAsAString = "/";
+              break;
+            default:
+              operationAsAString = "💩";
+              break;
+          }
+          // Display the item
+          $("#output").append(
+            `<li class="list-group-item">${historyItem.firstValue}
         ${operationAsAString}
         ${historyItem.secondValue} =
         ${historyItem.result}</li>`
-        );
-      });
-    });
+          );
+        });
+      },
+      "json"
+    );
   }
 });
