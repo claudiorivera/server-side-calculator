@@ -1,11 +1,19 @@
 // Wait for DOM
 $(document).ready(() => {
+  // INITIALIZE DISPLAY AND VARIABLES
+
   // Update the history display
   updateHistory();
 
+  // Declare global variables
   let firstValue = null;
   let secondValue = null;
   let operation = null;
+
+  // Disable the equals button
+  $("#calculate").attr("disabled", "disabled");
+
+  // EVENT HANDLERS
 
   // Calculate button triggers message packaging and sending
   $("#calculate").on("click", () => {
@@ -28,25 +36,29 @@ $(document).ready(() => {
 
     // Update the history display
     updateHistory();
+    clearInput();
   });
+
   // Clear input button clears the inputs
-  $("#clearInput").on("click", () => {
-    // TODO
-  });
+  $("#clearInput").on("click", clearInput);
+
   // Clear history button clears the history
   $("#clearHistory").on("click", () => {
-    // TODO
+    // TODO - Send DELETE command to server?
   });
+
   // Number button event handlers
   $(".numberButton").on("click", (event) => {
+    // Hold values for convenience
     const valueOfNumberButtonClicked = event.target.innerText;
     const $calcDisplay = $("#calcDisplay");
     const currentValue = $calcDisplay.val();
+
     // Disable the period after being pressed for the first time
     if (valueOfNumberButtonClicked === ".") {
-      // TODO: DISABLE THE POINT BUTTON
+      $("#point").attr("disabled", "disabled");
     }
-    // Clear the display if the value is 0 (ie. starting over)
+    // Clear the display if the value is 0 (ie. at start)
     if (currentValue === "0") {
       $calcDisplay.val(valueOfNumberButtonClicked);
 
@@ -55,6 +67,7 @@ $(document).ready(() => {
       $calcDisplay.val(currentValue + valueOfNumberButtonClicked);
     }
   });
+
   // Operation button event handlers
   $("#divide").on("click", () => {
     //TODO
@@ -69,9 +82,25 @@ $(document).ready(() => {
     //TODO
   });
 
+  // FUNCTION DECLARATIONS
+
+  // Clear inputs
+  function clearInput() {
+    // Enable the point button
+    $("#point").removeAttr("disabled");
+    // Disable the equals button
+    $("#calculate").attr("disabled", "disabled");
+    // Reset the display field to 0
+    $("#calcDisplay").val("0");
+    // Reset values and operation to null
+    firstValue = null;
+    secondValue = null;
+    operation = null;
+  }
+
   // Clear history and display contents from server
   function updateHistory() {
-    // Clear history
+    // Clear history display
     $("#history").empty();
 
     // GET history from /history
