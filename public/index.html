@@ -36,14 +36,13 @@
 
       <!-- CALCULATOR UI START -->
       <div class="container text-center">
-        <!-- CALCULATOR DISPLAY START -->
         <div class="row">
           <input
             type="text"
             class="form-control col m-1 text-right"
             name="calcDisplay"
             id="calcDisplay"
-            placeholder="0"
+            value=0
             readonly
           />
           <button type="button" val="clearInput" id="clearInput" class="font-weight-bold m-1 col-3 btn btn-dark">
@@ -51,28 +50,25 @@
           </button>
         </div>
 
-        <!-- CALCULATOR DISPLAY END -->
-
-        <!-- CALCULATOR BUTTONS START -->
         <div class="row">
           <button
             type="button"
             val="7"
-            id="seven" class="font-weight-bold m-1 col btn btn-light"
+            id="seven" class="numberButton font-weight-bold m-1 col btn btn-light"
           >
             7
           </button>
           <button
             type="button"
             val="8"
-            id="eight" class="font-weight-bold m-1 col btn btn-light"
+            id="eight" class="numberButton font-weight-bold m-1 col btn btn-light"
           >
             8
           </button>
           <button
             type="button"
             val="9"
-            id="nine" class="font-weight-bold m-1 col btn btn-light"
+            id="nine" class="numberButton font-weight-bold m-1 col btn btn-light"
           >
             9
           </button>
@@ -84,21 +80,21 @@
           <button
             type="button"
             val="4"
-            id="four" class="font-weight-bold m-1 col btn btn-light"
+            id="four" class="numberButton font-weight-bold m-1 col btn btn-light"
           >
             4
           </button>
           <button
             type="button"
             val="5"
-            id="five" class="font-weight-bold m-1 col btn btn-light"
+            id="five" class="numberButton font-weight-bold m-1 col btn btn-light"
           >
             5
           </button>
           <button
             type="button"
             val="6"
-            id="six" class="font-weight-bold m-1 col btn btn-light"
+            id="six" class="numberButton font-weight-bold m-1 col btn btn-light"
           >
             6
           </button>
@@ -110,21 +106,21 @@
           <button
             type="button"
             val="1"
-            id="one" class="font-weight-bold m-1 col btn btn-light"
+            id="one" class="numberButton font-weight-bold m-1 col btn btn-light"
           >
             1
           </button>
           <button
             type="button"
             val="2"
-            id="two" class="font-weight-bold m-1 col btn btn-light"
+            id="two" class="numberButton font-weight-bold m-1 col btn btn-light"
           >
             2
           </button>
           <button
             type="button"
             val="3"
-            id="three" class="font-weight-bold m-1 col btn btn-light"
+            id="three" class="numberButton font-weight-bold m-1 col btn btn-light"
           >
             3
           </button>
@@ -136,14 +132,14 @@
           <button
             type="button"
             val="."
-            id="point" class="font-weight-bold m-1 col btn btn-light"
+            id="point" class="numberButton font-weight-bold m-1 col btn btn-light"
           >
             .
           </button>
           <button
             type="button"
             val="0"
-            id="zero" class="font-weight-bold m-1 col btn btn-light"
+            id="zero" class="numberButton font-weight-bold m-1 col btn btn-light"
           >
             0
           </button>
@@ -160,12 +156,10 @@
           </button>
         </div>
       </div>
-      <!-- CALCULATOR BUTTONS END -->
-
       <!-- CALCULATOR UI END -->
     </div>
 
-    <!-- OUTPUT -->
+    <!-- HISTORY OUTPUT -->
     <div class="container">
       <h3 class="text-center">History</h3>
       <button type="button" id="clearHistory" class="btn-sm btn btn-light">

@@ -3,9 +3,9 @@ $(document).ready(() => {
   // Update the history display
   updateHistory();
 
-  let firstValue = 3;
-  let secondValue = 4;
-  let operation = "add";
+  let firstValue = null;
+  let secondValue = null;
+  let operation = null;
 
   // Calculate button triggers message packaging and sending
   $("#calculate").on("click", () => {
@@ -38,35 +38,22 @@ $(document).ready(() => {
     // TODO
   });
   // Number button event handlers
-  $("#seven").on("click", () => {
-    //TODO
-  });
-  $("#eight").on("click", () => {
-    //TODO
-  });
-  $("#nine").on("click", () => {
-    //TODO
-  });
-  $("#four").on("click", () => {
-    //TODO
-  });
-  $("#five").on("click", () => {
-    //TODO
-  });
-  $("#six").on("click", () => {
-    //TODO
-  });
-  $("#one").on("click", () => {
-    //TODO
-  });
-  $("#two").on("click", () => {
-    //TODO
-  });
-  $("#three").on("click", () => {
-    //TODO
-  });
-  $("#zero").on("click", () => {
-    //TODO
+  $(".numberButton").on("click", (event) => {
+    const valueOfNumberButtonClicked = event.target.innerText;
+    const $calcDisplay = $("#calcDisplay");
+    const currentValue = $calcDisplay.val();
+    // Disable the period after being pressed for the first time
+    if (valueOfNumberButtonClicked === ".") {
+      // TODO: DISABLE THE POINT BUTTON
+    }
+    // Clear the display if the value is 0 (ie. starting over)
+    if (currentValue === "0") {
+      $calcDisplay.val(valueOfNumberButtonClicked);
+
+      // Otherwise, concatenate (as strings) the current and button value
+    } else {
+      $calcDisplay.val(currentValue + valueOfNumberButtonClicked);
+    }
   });
   // Operation button event handlers
   $("#divide").on("click", () => {
