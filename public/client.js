@@ -11,40 +11,13 @@ $(document).ready(() => {
   let operation = null;
   const $calcDisplay = $("#calcDisplay");
 
-  // Disable the equals button
+  // Disable the equals button to start
   $("#calculate").attr("disabled", "disabled");
 
-  // Disable the operation buttons
+  // Disable the operation buttons to start
   $(".operationButton").attr("disabled", "disabled");
 
   // EVENT HANDLERS
-  // Calculate button triggers message packaging and sending
-  $("#calculate").on("click", () => {
-    // Since calculate button is only enabled after first value is stored
-    // We can go ahead and store the second value
-    secondValue = Number($calcDisplay.val());
-    // Package the message to send
-    let messageToSend = {
-      firstValue,
-      secondValue,
-      operation,
-    };
-
-    // POST the message to /calculate
-    $.ajax({
-      type: "POST",
-      url: "/calculate",
-      data: JSON.stringify(messageToSend),
-      // contentType is not json by default: https://api.jquery.com/jQuery.ajax/
-      contentType: "application/json; charset=utf-8",
-      dataType: "json",
-    });
-
-    // Update the history display and clear the inputs
-    updateHistory();
-    clearInput();
-  });
-
   // Clear input button clears the inputs
   $("#clearInput").on("click", clearInput);
 
@@ -55,7 +28,7 @@ $(document).ready(() => {
 
   // Number button event handlers
   $(".numberButton").on("click", (event) => {
-    // Enable operations if there's no operator and no first value
+    // Enable operations if there's no gloabl operation and no global first value
     if (operation === null && firstValue === null) {
       $(".operationButton").removeAttr("disabled");
     }
@@ -134,6 +107,33 @@ $(document).ready(() => {
     $calcDisplay.val("0");
   });
 
+  // Calculate button triggers message packaging and sending
+  $("#calculate").on("click", () => {
+    // Since calculate button is only enabled after first value is stored
+    // We can go ahead and store the second value
+    secondValue = Number($calcDisplay.val());
+    // Package the message to send
+    let messageToSend = {
+      firstValue,
+      secondValue,
+      operation,
+    };
+
+    // POST the message to /calculate
+    $.ajax({
+      type: "POST",
+      url: "/calculate",
+      data: JSON.stringify(messageToSend),
+      // contentType is not json by default: https://api.jquery.com/jQuery.ajax/
+      contentType: "application/json; charset=utf-8",
+      dataType: "json",
+    });
+
+    // Update the history display and clear the inputs
+    updateHistory();
+    clearInput();
+  });
+
   // FUNCTION DECLARATIONS
   // Clear inputs
   function clearInput() {
@@ -145,7 +145,7 @@ $(document).ready(() => {
     $(".operationButton").attr("disabled", "disabled");
     // Reset the display field to 0
     $("#calcDisplay").val("0");
-    // Reset values and operation to null
+    // Reset global values and operation to null
     firstValue = null;
     secondValue = null;
     operation = null;
