@@ -9,17 +9,29 @@
       content="width=device-width, initial-scale=1, shrink-to-fit=no"
     />
 
-    <!-- Bootstrap CSS -->
+    <!-- CSS -->
     <link
       rel="stylesheet"
       href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
       integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
       crossorigin="anonymous"
     />
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.1.1/css/all.css"
+      integrity="sha384-O8whS3fhG2OnA5Kas0Y9l3cfpmYjapjI0E4theH4iuMD+pLhbf6JI0jIMfYcK3yZ"
+      crossorigin="anonymous"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Lobster&display=swap"
+      rel="stylesheet"
+    />
   </head>
   <body>
     <div class="jumbotron text-center">
-      <h1 class="display-3">Server-Side Calculator</h1>
+      <h1 class="display-3" style="font-family: 'Lobster', cursive;">
+        Server-Side Calculator
+      </h1>
       <hr class="my-2" />
 
       <!-- CALCULATOR UI START -->
@@ -29,9 +41,10 @@
           <input
             type="text"
             class="form-control text-right"
-            name=""
-            id=""
+            name="calcDisplay"
+            id="calcDisplay"
             placeholder="0"
+            readonly
           />
         </div>
 
@@ -39,39 +52,99 @@
 
         <!-- CALCULATOR BUTTONS START -->
         <div class="row">
-          <button type="button" val="7" class="m-1 col btn btn-light">7</button>
-          <button type="button" val="8" class="m-1 col btn btn-light">8</button>
-          <button type="button" val="9" class="m-1 col btn btn-light">9</button>
+          <button
+            type="button"
+            val="7"
+            class="font-weight-bold m-1 col btn btn-light"
+          >
+            7
+          </button>
+          <button
+            type="button"
+            val="8"
+            class="font-weight-bold m-1 col btn btn-light"
+          >
+            8
+          </button>
+          <button
+            type="button"
+            val="9"
+            class="font-weight-bold m-1 col btn btn-light"
+          >
+            9
+          </button>
           <button type="button" val="divide" class="m-1 col btn btn-primary">
-            /
+            <i class="fas fa-divide"></i>
           </button>
         </div>
         <div class="row">
-          <button type="button" val="4" class="m-1 col btn btn-light">4</button>
-          <button type="button" val="5" class="m-1 col btn btn-light">5</button>
-          <button type="button" val="6" class="m-1 col btn btn-light">6</button>
+          <button
+            type="button"
+            val="4"
+            class="font-weight-bold m-1 col btn btn-light"
+          >
+            4
+          </button>
+          <button
+            type="button"
+            val="5"
+            class="font-weight-bold m-1 col btn btn-light"
+          >
+            5
+          </button>
+          <button
+            type="button"
+            val="6"
+            class="font-weight-bold m-1 col btn btn-light"
+          >
+            6
+          </button>
           <button type="button" val="multiply" class="m-1 col btn btn-primary">
-            *
+            <i class="fas fa-times"></i>
           </button>
         </div>
         <div class="row">
-          <button type="button" val="1" class="m-1 col btn btn-light">1</button>
-          <button type="button" val="2" class="m-1 col btn btn-light">2</button>
-          <button type="button" val="3" class="m-1 col btn btn-light">3</button>
+          <button
+            type="button"
+            val="1"
+            class="font-weight-bold m-1 col btn btn-light"
+          >
+            1
+          </button>
+          <button
+            type="button"
+            val="2"
+            class="font-weight-bold m-1 col btn btn-light"
+          >
+            2
+          </button>
+          <button
+            type="button"
+            val="3"
+            class="font-weight-bold m-1 col btn btn-light"
+          >
+            3
+          </button>
           <button type="button" val="subtract" class="m-1 col btn btn-primary">
-            -
+            <i class="fas fa-minus"></i>
           </button>
         </div>
         <div class="row">
-          <button type="button" val="clear" class="m-1 col btn btn-warning">
+          <button type="button" val="clear" class="m-1 col btn btn-dark">
             C
           </button>
-          <button type="button" val="0" class="m-1 col btn btn-light">0</button>
+          <button
+            type="button"
+            val="0"
+            class="font-weight-bold m-1 col btn btn-light"
+          >
+            0
+          </button>
           <button type="button" val="calculate" class="m-1 col btn btn-success">
-            =
+            <i class="fas fa-equals"></i>
           </button>
           <button type="button" val="add" class="m-1 col btn btn-primary">
-            +
+            <i class="fas fa-plus"></i>
           </button>
         </div>
       </div>
@@ -83,7 +156,7 @@
     <!-- OUTPUT -->
     <div class="container">
       <h3 class="text-center">History</h3>
-      <ul class="list-group" id="output"></ul>
+      <ul class="list-group" id="history"></ul>
     </div>
 
     <!-- Optional JavaScript -->

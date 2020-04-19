@@ -33,10 +33,10 @@ $(document).ready(() => {
     $("#secondValue").val("");
   });
 
-  // Clear output and display contents from server
+  // Clear history and display contents from server
   function updateDisplay() {
-    // Clear output
-    $("#output").empty();
+    // Clear history
+    $("#history").empty();
 
     // GET history from /history
     $.get(
@@ -64,7 +64,7 @@ $(document).ready(() => {
               break;
           }
           // Display the item
-          $("#output").append(
+          $("#history").append(
             `<li class="list-group-item">${item.firstValue}
         ${operationAsAString}
         ${item.secondValue} =
