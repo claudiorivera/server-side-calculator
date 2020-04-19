@@ -5,13 +5,17 @@ $(document).ready(() => {
   // Update the history display
   updateHistory();
 
-  // Declare global variables
+  // Declare global variables and convenience variables
   let firstValue = null;
   let secondValue = null;
   let operation = null;
+  const $calcDisplay = $("#calcDisplay");
 
   // Disable the equals button
   $("#calculate").attr("disabled", "disabled");
+
+  // Disable the operation buttons
+  $(".operationButton").attr("disabled", "disabled");
 
   // EVENT HANDLERS
 
@@ -49,37 +53,91 @@ $(document).ready(() => {
 
   // Number button event handlers
   $(".numberButton").on("click", (event) => {
-    // Hold values for convenience
-    const valueOfNumberButtonClicked = event.target.innerText;
-    const $calcDisplay = $("#calcDisplay");
-    const currentValue = $calcDisplay.val();
+    // Check to see if we have a first value (ie. we're on the second time through)
+    if (firstValue !== null) {
+      // DO STUFF AS IF IT WERE THE SECOND TIME
+      // Hold values for convenience
+      const valueOfNumberButtonClicked = event.target.innerText;
+      const currentValue = $calcDisplay.val();
 
-    // Disable the period after being pressed for the first time
-    if (valueOfNumberButtonClicked === ".") {
-      $("#point").attr("disabled", "disabled");
-    }
-    // Clear the display if the value is 0 (ie. at start)
-    if (currentValue === "0") {
-      $calcDisplay.val(valueOfNumberButtonClicked);
+      // Disable the period after being pressed for the first time
+      if (valueOfNumberButtonClicked === ".") {
+        $("#point").attr("disabled", "disabled");
+      }
+      // Clear the display if the value is 0 (ie. at start)
+      if (currentValue === "0") {
+        $calcDisplay.val(valueOfNumberButtonClicked);
 
-      // Otherwise, concatenate (as strings) the current and button value
+        // Otherwise, concatenate (as strings) the current and button value
+      } else {
+        $calcDisplay.val(currentValue + valueOfNumberButtonClicked);
+        // And set the second value to this concantenated string as a number
+        console.log(`${firstValue}, ${secondValue}, ${operation}`);
+      }
     } else {
-      $calcDisplay.val(currentValue + valueOfNumberButtonClicked);
+      // DO STUFF AS IF IT WERE THE FIRST TIME
+      // Hold values for convenience
+      const valueOfNumberButtonClicked = event.target.innerText;
+      const currentValue = $calcDisplay.val();
+
+      // Disable the period after being pressed for the first time
+      if (valueOfNumberButtonClicked === ".") {
+        $("#point").attr("disabled", "disabled");
+      }
+      // Clear the display if the value is 0 (ie. at start)
+      if (currentValue === "0") {
+        $calcDisplay.val(valueOfNumberButtonClicked);
+        // And enable operation buttons
+        $(".operationButton").removeAttr("disabled");
+
+        // Otherwise, concatenate (as strings) the current and button value
+      } else {
+        $calcDisplay.val(currentValue + valueOfNumberButtonClicked);
+      }
     }
   });
 
-  // Operation button event handlers
+  // Operation button event handlers - THIS SHOULD BE ON ONE LISTENER
+  // WHEN WE STORE THE OPERATION, IT SHOULD KNOW WHO IS CALLING IT
   $("#divide").on("click", () => {
-    //TODO
+    // Disable operation buttons
+    $(".operationButton").attr("disabled", "disabled");
+    // Store the current display value as the first value
+    firstValue = Number($calcDisplay.val());
+    // Store the operation as add
+    operation = "divide";
+    // Reset the display to 0
+    $calcDisplay.val("0");
   });
   $("#multiply").on("click", () => {
-    //TODO
+    // Disable operation buttons
+    $(".operationButton").attr("disabled", "disabled");
+    // Store the current display value as the first value
+    firstValue = Number($calcDisplay.val());
+    // Store the operation as add
+    operation = "multiply";
+    // Reset the display to 0
+    $calcDisplay.val("0");
   });
   $("#subtract").on("click", () => {
-    //TODO
+    // Disable operation buttons
+    $(".operationButton").attr("disabled", "disabled");
+    // Store the current display value as the first value
+    firstValue = Number($calcDisplay.val());
+    // Store the operation as add
+    operation = "subtract";
+    // Reset the display to 0
+    $calcDisplay.val("0");
   });
   $("#add").on("click", () => {
-    //TODO
+    // Disable operation buttons
+    $(".operationButton").attr("disabled", "disabled");
+    // Store the current display value as the first value
+    firstValue = Number($calcDisplay.val());
+    // Store the operation as add
+    operation = "add";
+    // Reset the display to 0
+    $calcDisplay.val("0");
   });
 
   // FUNCTION DECLARATIONS
@@ -90,6 +148,8 @@ $(document).ready(() => {
     $("#point").removeAttr("disabled");
     // Disable the equals button
     $("#calculate").attr("disabled", "disabled");
+    // Disable the operation buttons
+    $(".operationButton").attr("disabled", "disabled");
     // Reset the display field to 0
     $("#calcDisplay").val("0");
     // Reset values and operation to null
