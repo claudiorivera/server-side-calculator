@@ -18,9 +18,11 @@ $(document).ready(() => {
   $(".operationButton").attr("disabled", "disabled");
 
   // EVENT HANDLERS
-
   // Calculate button triggers message packaging and sending
   $("#calculate").on("click", () => {
+    // Since calculate button is only enabled after first value is stored
+    // We can go ahead and store the second value
+    secondValue = Number($calcDisplay.val());
     // Package the message to send
     let messageToSend = {
       firstValue,
@@ -38,7 +40,7 @@ $(document).ready(() => {
       dataType: "json",
     });
 
-    // Update the history display
+    // Update the history display and clear the inputs
     updateHistory();
     clearInput();
   });
@@ -53,47 +55,31 @@ $(document).ready(() => {
 
   // Number button event handlers
   $(".numberButton").on("click", (event) => {
-    // Check to see if we have a first value (ie. we're on the second time through)
-    if (firstValue !== null) {
-      // DO STUFF AS IF IT WERE THE SECOND TIME
-      // Hold values for convenience
-      const valueOfNumberButtonClicked = event.target.innerText;
-      const currentValue = $calcDisplay.val();
+    // Enable operations if there's no operator and no first value
+    if (operation === null && firstValue === null) {
+      $(".operationButton").removeAttr("disabled");
+    }
 
-      // Disable the period after being pressed for the first time
-      if (valueOfNumberButtonClicked === ".") {
-        $("#point").attr("disabled", "disabled");
-      }
-      // Clear the display if the value is 0 (ie. at start)
-      if (currentValue === "0") {
-        $calcDisplay.val(valueOfNumberButtonClicked);
+    // If we have an operation (implies we have a first value), enable the calculate button
+    if (operation !== null) {
+      $("#calculate").removeAttr("disabled");
+    }
 
-        // Otherwise, concatenate (as strings) the current and button value
-      } else {
-        $calcDisplay.val(currentValue + valueOfNumberButtonClicked);
-        // And set the second value to this concantenated string as a number
-        console.log(`${firstValue}, ${secondValue}, ${operation}`);
-      }
+    // Hold values for convenience
+    let valueOfNumberButtonClicked = event.target.innerText;
+    let currentValue = $calcDisplay.val();
+
+    // Disable the period after being pressed for the first time
+    if (valueOfNumberButtonClicked === ".") {
+      $("#point").attr("disabled", "disabled");
+    }
+    // Clear the display if the value is 0 (ie. at start)
+    if (currentValue === "0") {
+      $calcDisplay.val(valueOfNumberButtonClicked);
+
+      // Otherwise, concatenate (as strings) the current and button value
     } else {
-      // DO STUFF AS IF IT WERE THE FIRST TIME
-      // Hold values for convenience
-      const valueOfNumberButtonClicked = event.target.innerText;
-      const currentValue = $calcDisplay.val();
-
-      // Disable the period after being pressed for the first time
-      if (valueOfNumberButtonClicked === ".") {
-        $("#point").attr("disabled", "disabled");
-      }
-      // Clear the display if the value is 0 (ie. at start)
-      if (currentValue === "0") {
-        $calcDisplay.val(valueOfNumberButtonClicked);
-        // And enable operation buttons
-        $(".operationButton").removeAttr("disabled");
-
-        // Otherwise, concatenate (as strings) the current and button value
-      } else {
-        $calcDisplay.val(currentValue + valueOfNumberButtonClicked);
-      }
+      $calcDisplay.val(currentValue + valueOfNumberButtonClicked);
     }
   });
 
@@ -102,6 +88,8 @@ $(document).ready(() => {
   $("#divide").on("click", () => {
     // Disable operation buttons
     $(".operationButton").attr("disabled", "disabled");
+    // Enable decimal point button
+    $("#point").removeAttr("disabled");
     // Store the current display value as the first value
     firstValue = Number($calcDisplay.val());
     // Store the operation as add
@@ -112,6 +100,8 @@ $(document).ready(() => {
   $("#multiply").on("click", () => {
     // Disable operation buttons
     $(".operationButton").attr("disabled", "disabled");
+    // Enable decimal point button
+    $("#point").removeAttr("disabled");
     // Store the current display value as the first value
     firstValue = Number($calcDisplay.val());
     // Store the operation as add
@@ -122,6 +112,8 @@ $(document).ready(() => {
   $("#subtract").on("click", () => {
     // Disable operation buttons
     $(".operationButton").attr("disabled", "disabled");
+    // Enable decimal point button
+    $("#point").removeAttr("disabled");
     // Store the current display value as the first value
     firstValue = Number($calcDisplay.val());
     // Store the operation as add
@@ -132,6 +124,8 @@ $(document).ready(() => {
   $("#add").on("click", () => {
     // Disable operation buttons
     $(".operationButton").attr("disabled", "disabled");
+    // Enable decimal point button
+    $("#point").removeAttr("disabled");
     // Store the current display value as the first value
     firstValue = Number($calcDisplay.val());
     // Store the operation as add
@@ -141,7 +135,6 @@ $(document).ready(() => {
   });
 
   // FUNCTION DECLARATIONS
-
   // Clear inputs
   function clearInput() {
     // Enable the point button
