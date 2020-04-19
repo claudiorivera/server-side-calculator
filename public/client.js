@@ -21,13 +21,39 @@ $(document).ready(() => {
   // Clear input button clears the inputs
   $("#clearInput").on("click", clearInput);
 
+  // Number button event handlers
+  $(".numberButton").on("click", numberButtonHandler);
+
+  // Operation button event handlers
+  $(".operationButton").on("click", operationButtonHandler);
+
+  // Calculate button triggers message packaging and sending
+  $("#calculate").on("click", calculateButtonHandler);
+
   // Clear history button clears the history
   $("#clearHistory").on("click", () => {
     // TODO - Send DELETE command to server?
   });
 
-  // Number button event handlers
-  $(".numberButton").on("click", (event) => {
+  // FUNCTION DECLARATIONS
+  // Clear inputs
+  function clearInput() {
+    // Enable the point button
+    $("#point").removeAttr("disabled");
+    // Disable the equals button
+    $("#calculate").attr("disabled", "disabled");
+    // Disable the operation buttons
+    $(".operationButton").attr("disabled", "disabled");
+    // Reset the display field to 0
+    $("#calcDisplay").val("0");
+    // Reset global values and operation to null
+    firstValue = null;
+    secondValue = null;
+    operation = null;
+  }
+
+  // Display numbers in the field
+  function numberButtonHandler(event) {
     // Enable operations if there's no gloabl operation and no global first value
     if (operation === null && firstValue === null) {
       $(".operationButton").removeAttr("disabled");
@@ -54,10 +80,10 @@ $(document).ready(() => {
     } else {
       $calcDisplay.val(currentValue + valueOfNumberButtonClicked);
     }
-  });
+  }
 
-  // Operation button event handlers
-  $(".operationButton").on("click", (event) => {
+  // Store the first number and the operation
+  function operationButtonHandler(event) {
     // Disable operation buttons
     $(".operationButton").attr("disabled", "disabled");
     // Enable decimal point button
@@ -68,10 +94,10 @@ $(document).ready(() => {
     operation = event.originalEvent.target.id;
     // Reset the display to 0
     $calcDisplay.val("0");
-  });
+  }
 
-  // Calculate button triggers message packaging and sending
-  $("#calculate").on("click", () => {
+  // Store the second number, bundle the package, and send it
+  function calculateButtonHandler() {
     // Since calculate button is only enabled after first value
     // And operation is already stored
     // We can go ahead and just store the second value
@@ -97,23 +123,6 @@ $(document).ready(() => {
     // Update the history display and clear the inputs
     updateHistory();
     clearInput();
-  });
-
-  // FUNCTION DECLARATIONS
-  // Clear inputs
-  function clearInput() {
-    // Enable the point button
-    $("#point").removeAttr("disabled");
-    // Disable the equals button
-    $("#calculate").attr("disabled", "disabled");
-    // Disable the operation buttons
-    $(".operationButton").attr("disabled", "disabled");
-    // Reset the display field to 0
-    $("#calcDisplay").val("0");
-    // Reset global values and operation to null
-    firstValue = null;
-    secondValue = null;
-    operation = null;
   }
 
   // Clear history and display contents from server
