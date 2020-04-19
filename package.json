@@ -6,12 +6,13 @@
   "scripts": {
     "test": "jest",
     "start": "node server",
-    "dev": "nodemon server"
+    "dev": "nodemon server & browser-sync start --proxy 'localhost:3000' --files 'public'"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
     "express": "^4.17.1"
-  }
+  },
+  "devDependencies": {}
 }

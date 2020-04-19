@@ -5,7 +5,20 @@ const PORT = 3000;
 const { calculate } = require("./calculate");
 
 // History of operations
-const history = [];
+const history = [
+  {
+    firstValue: 25,
+    secondValue: 5,
+    operation: "divide",
+    result: 5,
+  },
+  {
+    firstValue: 5,
+    secondValue: 5,
+    operation: "add",
+    result: 10,
+  },
+];
 
 // Middleware
 app.use(express.json());
