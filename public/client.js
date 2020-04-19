@@ -56,62 +56,27 @@ $(document).ready(() => {
     }
   });
 
-  // Operation button event handlers - THIS SHOULD BE ON ONE LISTENER
-  // WHEN WE STORE THE OPERATION, IT SHOULD KNOW WHO IS CALLING IT
-  $("#divide").on("click", () => {
+  // Operation button event handlers
+  $(".operationButton").on("click", (event) => {
     // Disable operation buttons
     $(".operationButton").attr("disabled", "disabled");
     // Enable decimal point button
     $("#point").removeAttr("disabled");
     // Store the current display value as the first value
     firstValue = Number($calcDisplay.val());
-    // Store the operation as add
-    operation = "divide";
-    // Reset the display to 0
-    $calcDisplay.val("0");
-  });
-  $("#multiply").on("click", () => {
-    // Disable operation buttons
-    $(".operationButton").attr("disabled", "disabled");
-    // Enable decimal point button
-    $("#point").removeAttr("disabled");
-    // Store the current display value as the first value
-    firstValue = Number($calcDisplay.val());
-    // Store the operation as add
-    operation = "multiply";
-    // Reset the display to 0
-    $calcDisplay.val("0");
-  });
-  $("#subtract").on("click", () => {
-    // Disable operation buttons
-    $(".operationButton").attr("disabled", "disabled");
-    // Enable decimal point button
-    $("#point").removeAttr("disabled");
-    // Store the current display value as the first value
-    firstValue = Number($calcDisplay.val());
-    // Store the operation as add
-    operation = "subtract";
-    // Reset the display to 0
-    $calcDisplay.val("0");
-  });
-  $("#add").on("click", () => {
-    // Disable operation buttons
-    $(".operationButton").attr("disabled", "disabled");
-    // Enable decimal point button
-    $("#point").removeAttr("disabled");
-    // Store the current display value as the first value
-    firstValue = Number($calcDisplay.val());
-    // Store the operation as add
-    operation = "add";
+    // Store the operation that came in from the click event
+    operation = event.originalEvent.target.id;
     // Reset the display to 0
     $calcDisplay.val("0");
   });
 
   // Calculate button triggers message packaging and sending
   $("#calculate").on("click", () => {
-    // Since calculate button is only enabled after first value is stored
-    // We can go ahead and store the second value
+    // Since calculate button is only enabled after first value
+    // And operation is already stored
+    // We can go ahead and just store the second value
     secondValue = Number($calcDisplay.val());
+
     // Package the message to send
     let messageToSend = {
       firstValue,
