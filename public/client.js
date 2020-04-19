@@ -1,15 +1,19 @@
 // Wait for DOM
 $(document).ready(() => {
-  // Update the display
-  updateDisplay();
+  // Update the history display
+  updateHistory();
+
+  let firstValue = 3;
+  let secondValue = 4;
+  let operation = "add";
 
   // Calculate button triggers message packaging and sending
   $("#calculate").on("click", () => {
     // Package the message to send
     let messageToSend = {
-      firstValue: parseInt($("#firstValue").val()),
-      secondValue: parseInt($("#secondValue").val()),
-      operation: $("#operation").val(),
+      firstValue,
+      secondValue,
+      operation,
     };
 
     // POST the message to /calculate
@@ -20,21 +24,66 @@ $(document).ready(() => {
       // contentType is not json by default: https://api.jquery.com/jQuery.ajax/
       contentType: "application/json; charset=utf-8",
       dataType: "json",
-      success: function (response) {},
     });
 
-    // Update the display
-    updateDisplay();
+    // Update the history display
+    updateHistory();
   });
-
-  // Clear button clears the input fields
-  $("#clear").on("click", () => {
-    $("#firstValue").val("");
-    $("#secondValue").val("");
+  // Clear input button clears the inputs
+  $("#clearInput").on("click", () => {
+    // TODO
+  });
+  // Clear history button clears the history
+  $("#clearHistory").on("click", () => {
+    // TODO
+  });
+  // Number button event handlers
+  $("#seven").on("click", () => {
+    //TODO
+  });
+  $("#eight").on("click", () => {
+    //TODO
+  });
+  $("#nine").on("click", () => {
+    //TODO
+  });
+  $("#four").on("click", () => {
+    //TODO
+  });
+  $("#five").on("click", () => {
+    //TODO
+  });
+  $("#six").on("click", () => {
+    //TODO
+  });
+  $("#one").on("click", () => {
+    //TODO
+  });
+  $("#two").on("click", () => {
+    //TODO
+  });
+  $("#three").on("click", () => {
+    //TODO
+  });
+  $("#zero").on("click", () => {
+    //TODO
+  });
+  // Operation button event handlers
+  $("#divide").on("click", () => {
+    //TODO
+  });
+  $("#multiply").on("click", () => {
+    //TODO
+  });
+  $("#subtract").on("click", () => {
+    //TODO
+  });
+  $("#add").on("click", () => {
+    //TODO
   });
 
   // Clear history and display contents from server
-  function updateDisplay() {
+  function updateHistory() {
     // Clear history
     $("#history").empty();
 
