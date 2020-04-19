@@ -18,17 +18,71 @@
     />
   </head>
   <body>
-    <div class="jumbotron">
+    <div class="jumbotron text-center">
       <h1 class="display-3">Server-Side Calculator</h1>
       <hr class="my-2" />
 
-      <!-- INPUTS -->
-      <div class="container"></div>
+      <!-- CALCULATOR UI START -->
+      <div class="container text-center">
+        <!-- CALCULATOR DISPLAY START -->
+        <div class="row">
+          <input
+            type="text"
+            class="form-control text-right"
+            name=""
+            id=""
+            placeholder="0"
+          />
+        </div>
+
+        <!-- CALCULATOR DISPLAY END -->
+
+        <!-- CALCULATOR BUTTONS START -->
+        <div class="row">
+          <button type="button" val="7" class="m-1 col btn btn-light">7</button>
+          <button type="button" val="8" class="m-1 col btn btn-light">8</button>
+          <button type="button" val="9" class="m-1 col btn btn-light">9</button>
+          <button type="button" val="divide" class="m-1 col btn btn-primary">
+            /
+          </button>
+        </div>
+        <div class="row">
+          <button type="button" val="4" class="m-1 col btn btn-light">4</button>
+          <button type="button" val="5" class="m-1 col btn btn-light">5</button>
+          <button type="button" val="6" class="m-1 col btn btn-light">6</button>
+          <button type="button" val="multiply" class="m-1 col btn btn-primary">
+            *
+          </button>
+        </div>
+        <div class="row">
+          <button type="button" val="1" class="m-1 col btn btn-light">1</button>
+          <button type="button" val="2" class="m-1 col btn btn-light">2</button>
+          <button type="button" val="3" class="m-1 col btn btn-light">3</button>
+          <button type="button" val="subtract" class="m-1 col btn btn-primary">
+            -
+          </button>
+        </div>
+        <div class="row">
+          <button type="button" val="clear" class="m-1 col btn btn-warning">
+            C
+          </button>
+          <button type="button" val="0" class="m-1 col btn btn-light">0</button>
+          <button type="button" val="calculate" class="m-1 col btn btn-success">
+            =
+          </button>
+          <button type="button" val="add" class="m-1 col btn btn-primary">
+            +
+          </button>
+        </div>
+      </div>
+      <!-- CALCULATOR BUTTONS END -->
+
+      <!-- CALCULATOR UI END -->
     </div>
 
     <!-- OUTPUT -->
     <div class="container">
-      <h2>History</h2>
+      <h3 class="text-center">History</h3>
       <ul class="list-group" id="output"></ul>
     </div>
 
