@@ -6,7 +6,7 @@
   "main": "server.js",
   "scripts": {
     "test": "jest",
-    "start": "pm2 start server.js --watch --ignore-watch='node_modules'",
+    "start": "pm2 start server.js --watch",
     "dev": "nodemon server & browser-sync start --proxy 'localhost:3000' --files 'public'"
   },
   "repository": {
