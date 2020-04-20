@@ -3,6 +3,11 @@
   "builds": [{ "src": "server.js", "use": "@now/node-server" }],
   "routes": [
     {
+      "src": "/",
+      "dest": "/index.html",
+      "methods": ["GET"]
+    },
+    {
       "src": "/history",
       "dest": "/server.js",
       "methods": ["GET"]
