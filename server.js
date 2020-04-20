@@ -27,16 +27,7 @@ app.use(webHookHandler);
 
 // WebHooks
 webHookHandler.on('*', function (event, repo, data) {
-  console.log('\n' + '********////***** on.* event', event)
-  console.log('\n' + '********////***** on.* data', data)
-});
-webHookHandler.on('event', function (repo, data) {
-});
-webHookHandler.on('reponame', function (event, data) {
-  console.log('\n' + '****//////***** on.reponame', event, 'data', data)
-});
-webHookHandler.on('error', function (err, req, res) {
-  console.log('\n' + '******/////***** on.error', err)
+  console.log('webHookHandler event: ', event)
 });
 
 // GET
