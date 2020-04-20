@@ -7,7 +7,7 @@
   "scripts": {
     "test": "jest",
     "start": "pm2 start server.js",
-    "dev": "nodemon server"
+    "dev": "nodemon server & browser-sync start --proxy 'localhost:3000' --files 'public'"
   },
   "repository": {
     "type": "git",
