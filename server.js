@@ -34,6 +34,12 @@ app.post("/calculate", (req, res) => {
   res.json(history);
 });
 
+// DELETE
+app.delete("/history", (req, res) => {
+  history.splice(0, history.length);
+  res.json(history);
+});
+
 // Start server
 app.listen(PORT, () => {
   console.log(`Server started listening on port ${PORT}`);
