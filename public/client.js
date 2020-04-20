@@ -36,6 +36,8 @@ $(document).ready(() => {
   // FUNCTION DECLARATIONS
   // Clear inputs
   function clearInput() {
+    console.log(`clear button pressed`);
+
     // Enable the point button
     $("#point").removeAttr("disabled");
     // Disable the equals button
