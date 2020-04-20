@@ -2,6 +2,7 @@
 const express = require("express");
 const favicon = require('express-favicon');
 const path = require("path")
+// const GithubWebHook = require('express-github-webhook');
 
 // My module imports
 const { calculate } = require("./calculate");
@@ -11,6 +12,9 @@ const app = express();
 
 // Environmental variables
 const PORT = process.env.PORT || 3000;
+const SECRET_TOKEN = process.env.SECRET_TOKEN;
+console.log(`ST: ${SECRET_TOKEN}`);
+
 
 // Global variables
 const history = [];
@@ -19,6 +23,20 @@ const history = [];
 app.use(express.json());
 app.use(express.static("public"));
 app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
+// var webhookHandler = GithubWebHook({ path: '/webhook', secret: SECRET_TOKEN });
+
+// // Webhooks - TODO
+// webhookHandler.on('*', function (event, repo, data) {
+// });
+
+// webhookHandler.on('event', function (repo, data) {
+// });
+
+// webhookHandler.on('reponame', function (event, data) {
+// });
+
+// webhookHandler.on('error', function (err, req, res) {
+// });
 
 // GET
 app.get("/history", (req, res) => {

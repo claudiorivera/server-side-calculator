@@ -18,7 +18,8 @@
   "license": "MIT",
   "dependencies": {
     "express": "^4.17.1",
-    "express-favicon": "^2.0.1"
+    "express-favicon": "^2.0.1",
+    "express-github-webhook": "^1.0.6"
   },
   "devDependencies": {
     "nodemon": "^2.0.3"
