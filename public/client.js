@@ -128,10 +128,14 @@ $(document).ready(() => {
     // Clear history display
     $("#history").empty();
 
-    // GET history from /history
-    $.get(
-      "/history",
-      function (historyItems) {
+    //GET /history
+    $.ajax({
+      type: "GET",
+      url: "/history",
+      dataType: "json",
+      contentType: "application/json; charset=utf-8",
+
+      success: function (historyItems) {
         // Iterate through each item
         historyItems.forEach((item) => {
           // Convert the operator into a math symbol (ie. +, -, *, /)
@@ -156,26 +160,25 @@ $(document).ready(() => {
           // Display the item
           $("#history").append(
             `<li class="list-group-item">${item.firstValue}
-        ${operationAsAString}
-        ${item.secondValue} =
-        ${item.result}</li>`
+            ${operationAsAString}
+            ${item.secondValue} =
+            ${item.result}</li>`
           );
         });
       },
-      "json"
-    );
+    });
+  }
+
+  function clearHistory() {
+    // Clear history display
+    $("#history").empty();
+
+    // DELETE history from /history
+    $.ajax({
+      type: "DELETE",
+      url: "/history",
+      dataType: "application/json",
+      contentType: "application/json; charset=utf-8",
+    });
   }
 });
-
-function clearHistory() {
-  // Clear history display
-  $("#history").empty();
-
-  // DELETE history from /history
-  $.ajax({
-    type: "DELETE",
-    url: "/history",
-    dataType: "application/json",
-    contentType: "application/json; charset=utf-8",
-  });
-}
