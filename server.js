@@ -4,6 +4,7 @@ const favicon = require('express-favicon');
 const path = require("path")
 const webhook = require('express-github-webhook');
 require('dotenv').config();
+const { exec } = require("child_process");
 
 // My module imports
 const { calculate } = require("./calculate");
@@ -27,7 +28,20 @@ app.use(webHookHandler);
 
 // WebHooks
 webHookHandler.on('*', function (event, repo, data) {
-  console.log('webHookHandler event: ', event)
+  console.log('webHookHandler event: ', event);
+  if (event === "push") {
+    exec("git pull", (error, stdout, stderr) => {
+      if (error) {
+        console.log(`error: ${error.message}`);
+        return;
+      }
+      if (stderr) {
+        console.log(`stderr: ${stderr}`);
+        return;
+      }
+      console.log(`stdout: ${stdout}`);
+    });
+  }
 });
 
 // GET
