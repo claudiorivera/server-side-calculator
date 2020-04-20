@@ -2,19 +2,19 @@
 const express = require("express");
 const favicon = require('express-favicon');
 const path = require("path")
-// const GithubWebHook = require('express-github-webhook');
+const webhook = require('express-github-webhook');
+require('dotenv').config();
 
 // My module imports
 const { calculate } = require("./calculate");
 
-// Instantiate Express
-const app = express();
-
 // Environmental variables
 const PORT = process.env.PORT || 3000;
 const SECRET_TOKEN = process.env.SECRET_TOKEN;
-console.log(`ST: ${SECRET_TOKEN}`);
 
+// Instantiate Express
+const app = express();
+const webHookHandler = webhook({ path: '/webhook', secret: SECRET_TOKEN });
 
 // Global variables
 const history = [];
@@ -23,20 +23,21 @@ const history = [];
 app.use(express.json());
 app.use(express.static("public"));
 app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
-// var webhookHandler = GithubWebHook({ path: '/webhook', secret: SECRET_TOKEN });
+app.use(webHookHandler);
 
-// // Webhooks - TODO
-// webhookHandler.on('*', function (event, repo, data) {
-// });
-
-// webhookHandler.on('event', function (repo, data) {
-// });
-
-// webhookHandler.on('reponame', function (event, data) {
-// });
-
-// webhookHandler.on('error', function (err, req, res) {
-// });
+// WebHooks
+webHookHandler.on('*', function (event, repo, data) {
+  console.log('event', event)
+  console.log('data', data)
+});
+webHookHandler.on('event', function (repo, data) {
+});
+webHookHandler.on('reponame', function (event, data) {
+  console.log('reponame', event, 'data', data)
+});
+webHookHandler.on('error', function (err, req, res) {
+  console.log('error', err)
+});
 
 // GET
 app.get("/history", (req, res) => {
