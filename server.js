@@ -1,18 +1,24 @@
-// Module imports
+// Global module imports
 const express = require("express");
-const app = express();
-const PORT = process.env.PORT || 3000;
-const { calculate } = require("./calculate");
 const favicon = require('express-favicon');
+const path = require("path")
 
-// History of operations
+// My module imports
+const { calculate } = require("./calculate");
+
+// Instantiate Express
+const app = express();
+
+// Environmental variables
+const PORT = process.env.PORT || 3000;
+
+// Global variables
 const history = [];
 
-// Middleware
+// Instantiate middleware
 app.use(express.json());
 app.use(express.static("public"));
-app.use(favicon(__dirname + '/public/favicon.ico'));
-
+app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 
 // GET
 app.get("/history", (req, res) => {
