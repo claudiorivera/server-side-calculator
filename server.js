@@ -1,9 +1,9 @@
 // Global module imports
 const express = require("express");
-const favicon = require('express-favicon');
-const path = require("path")
-const webhook = require('express-github-webhook');
-require('dotenv').config();
+const favicon = require("express-favicon");
+const path = require("path");
+const webhook = require("express-github-webhook");
+require("dotenv").config();
 const { exec } = require("child_process");
 
 // My module imports
@@ -15,7 +15,7 @@ const SECRET_TOKEN = process.env.SECRET_TOKEN;
 
 // Instantiate Express
 const app = express();
-const webHookHandler = webhook({ path: '/webhook', secret: SECRET_TOKEN });
+const webHookHandler = webhook({ path: "/webhook", secret: SECRET_TOKEN });
 
 // Global variables
 const history = [];
@@ -23,25 +23,23 @@ const history = [];
 // Instantiate middleware
 app.use(express.json());
 app.use(express.static("public"));
-app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
+app.use(favicon(path.join(__dirname, "public", "favicon.ico")));
 app.use(webHookHandler);
 
 // WebHooks
-webHookHandler.on('*', function (event, repo, data) {
-  console.log('webHookHandler event: ', event);
-  if (event === "push") {
-    exec("git pull", (error, stdout, stderr) => {
-      if (error) {
-        console.log(`error: ${error.message}`);
-        return;
-      }
-      if (stderr) {
-        console.log(`stderr: ${stderr}`);
-        return;
-      }
-      console.log(`stdout: ${stdout}`);
-    });
-  }
+webHookHandler.on("*", function (event, repo, data) {
+  console.log("webHookHandler event: ", event);
+  exec("git pull", (error, stdout, stderr) => {
+    if (error) {
+      console.log(`error: ${error.message}`);
+      return;
+    }
+    if (stderr) {
+      console.log(`stderr: ${stderr}`);
+      return;
+    }
+    console.log(`stdout: ${stdout}`);
+  });
 });
 
 // GET
