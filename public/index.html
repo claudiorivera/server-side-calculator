@@ -1,224 +1,117 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <title>Server-Side Calculator</title>
-    <!-- Required meta tags -->
-    <meta charset="utf-8" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1, shrink-to-fit=no"
-    />
 
-    <!-- CSS -->
-    <link
-      rel="stylesheet"
-      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
-      crossorigin="anonymous"
-    />
-    <link
-      rel="stylesheet"
-      href="https://use.fontawesome.com/releases/v5.1.1/css/all.css"
-      integrity="sha384-O8whS3fhG2OnA5Kas0Y9l3cfpmYjapjI0E4theH4iuMD+pLhbf6JI0jIMfYcK3yZ"
-      crossorigin="anonymous"
-    />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Lobster&display=swap"
-      rel="stylesheet"
-    />
-  </head>
-  <body>
-    <div class="jumbotron text-center m-0">
-      <h1 class="display-3" style="font-family: 'Lobster', cursive;">
-        Server-Side Calculator v1.0.1
-      </h1>
+<head>
+  <title>Server-Side Calculator</title>
+  <!-- Required meta tags -->
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 
-      <!-- CALCULATOR UI START -->
-      <div class="container text-center">
-        <div class="row">
-          <input
-            type="text"
-            class="form-control col m-1 bg-white text-right"
-            name="calcDisplay"
-            id="calcDisplay"
-            value="0"
-            readonly
-          />
-          <button
-            type="button"
-            val="clearInput"
-            id="clearInput"
-            class="font-weight-bold m-1 col-3 btn btn-dark"
-          >
-            C
-          </button>
-        </div>
+  <!-- CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous" />
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.1/css/all.css"
+    integrity="sha384-O8whS3fhG2OnA5Kas0Y9l3cfpmYjapjI0E4theH4iuMD+pLhbf6JI0jIMfYcK3yZ" crossorigin="anonymous" />
+  <link href="https://fonts.googleapis.com/css2?family=Lobster&display=swap" rel="stylesheet" />
+</head>
 
-        <div class="row">
-          <button
-            type="button"
-            val="7"
-            id="seven"
-            class="numberButton font-weight-bold m-1 col btn btn-light"
-          >
-            7
-          </button>
-          <button
-            type="button"
-            val="8"
-            id="eight"
-            class="numberButton font-weight-bold m-1 col btn btn-light"
-          >
-            8
-          </button>
-          <button
-            type="button"
-            val="9"
-            id="nine"
-            class="numberButton font-weight-bold m-1 col btn btn-light"
-          >
-            9
-          </button>
-          <button
-            id="divide"
-            type="button"
-            val="divide"
-            class="operationButton m-1 col-3 btn btn-primary"
-          >
-            <i class="fas fa-divide"></i>
-          </button>
-        </div>
-        <div class="row">
-          <button
-            type="button"
-            val="4"
-            id="four"
-            class="numberButton font-weight-bold m-1 col btn btn-light"
-          >
-            4
-          </button>
-          <button
-            type="button"
-            val="5"
-            id="five"
-            class="numberButton font-weight-bold m-1 col btn btn-light"
-          >
-            5
-          </button>
-          <button
-            type="button"
-            val="6"
-            id="six"
-            class="numberButton font-weight-bold m-1 col btn btn-light"
-          >
-            6
-          </button>
-          <button
-            id="multiply"
-            type="button"
-            val="multiply"
-            class="operationButton m-1 col-3 btn btn-primary"
-          >
-            <i class="fas fa-times"></i>
-          </button>
-        </div>
-        <div class="row">
-          <button
-            type="button"
-            val="1"
-            id="one"
-            class="numberButton font-weight-bold m-1 col btn btn-light"
-          >
-            1
-          </button>
-          <button
-            type="button"
-            val="2"
-            id="two"
-            class="numberButton font-weight-bold m-1 col btn btn-light"
-          >
-            2
-          </button>
-          <button
-            type="button"
-            val="3"
-            id="three"
-            class="numberButton font-weight-bold m-1 col btn btn-light"
-          >
-            3
-          </button>
-          <button
-            id="subtract"
-            type="button"
-            val="subtract"
-            class="operationButton m-1 col-3 btn btn-primary"
-          >
-            <i class="fas fa-minus"></i>
-          </button>
-        </div>
-        <div class="row">
-          <button
-            type="button"
-            val="."
-            id="point"
-            class="numberButton font-weight-bold m-1 col btn btn-light"
-          >
-            .
-          </button>
-          <button
-            type="button"
-            val="0"
-            id="zero"
-            class="numberButton font-weight-bold m-1 col btn btn-light"
-          >
-            0
-          </button>
-          <button
-            type="button"
-            id="calculate"
-            val="calculate"
-            class="m-1 col btn btn-success"
-          >
-            <i class="fas fa-equals"></i>
-          </button>
-          <button
-            id="add"
-            type="button"
-            val="add"
-            class="operationButton m-1 col-3 btn btn-primary"
-          >
-            <i class="fas fa-plus"></i>
-          </button>
-        </div>
+<body>
+  <div class="jumbotron text-center m-0">
+    <h1 class="display-3" style="font-family: 'Lobster', cursive;">
+      Server-Side Calculator v1.0.1
+    </h1>
+    <h5>by Claudio Rivera</h5>
+    <hr>
+
+    <!-- CALCULATOR UI START -->
+    <div class="container text-center">
+      <div class="row">
+        <input type="text" class="form-control col m-1 bg-white text-right" name="calcDisplay" id="calcDisplay"
+          value="0" readonly />
+        <button type="button" val="clearInput" id="clearInput" class="font-weight-bold m-1 col-3 btn btn-dark">
+          C
+        </button>
       </div>
-      <!-- CALCULATOR UI END -->
-    </div>
 
-    <!-- HISTORY OUTPUT -->
-    <div class="jumbotron text-center m-0 pt-0">
-      <h3 class="text-center">History</h3>
-      <button type="button" id="clearHistory" class="btn-sm m-2 btn btn-light">
-        Clear History
-      </button>
-      <ul class="list-group" id="history"></ul>
+      <div class="row">
+        <button type="button" val="7" id="seven" class="numberButton font-weight-bold m-1 col btn btn-light">
+          7
+        </button>
+        <button type="button" val="8" id="eight" class="numberButton font-weight-bold m-1 col btn btn-light">
+          8
+        </button>
+        <button type="button" val="9" id="nine" class="numberButton font-weight-bold m-1 col btn btn-light">
+          9
+        </button>
+        <button id="divide" type="button" val="divide" class="operationButton m-1 col-3 btn btn-primary">
+          <i class="fas fa-divide"></i>
+        </button>
+      </div>
+      <div class="row">
+        <button type="button" val="4" id="four" class="numberButton font-weight-bold m-1 col btn btn-light">
+          4
+        </button>
+        <button type="button" val="5" id="five" class="numberButton font-weight-bold m-1 col btn btn-light">
+          5
+        </button>
+        <button type="button" val="6" id="six" class="numberButton font-weight-bold m-1 col btn btn-light">
+          6
+        </button>
+        <button id="multiply" type="button" val="multiply" class="operationButton m-1 col-3 btn btn-primary">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+      <div class="row">
+        <button type="button" val="1" id="one" class="numberButton font-weight-bold m-1 col btn btn-light">
+          1
+        </button>
+        <button type="button" val="2" id="two" class="numberButton font-weight-bold m-1 col btn btn-light">
+          2
+        </button>
+        <button type="button" val="3" id="three" class="numberButton font-weight-bold m-1 col btn btn-light">
+          3
+        </button>
+        <button id="subtract" type="button" val="subtract" class="operationButton m-1 col-3 btn btn-primary">
+          <i class="fas fa-minus"></i>
+        </button>
+      </div>
+      <div class="row">
+        <button type="button" val="." id="point" class="numberButton font-weight-bold m-1 col btn btn-light">
+          .
+        </button>
+        <button type="button" val="0" id="zero" class="numberButton font-weight-bold m-1 col btn btn-light">
+          0
+        </button>
+        <button type="button" id="calculate" val="calculate" class="m-1 col btn btn-success">
+          <i class="fas fa-equals"></i>
+        </button>
+        <button id="add" type="button" val="add" class="operationButton m-1 col-3 btn btn-primary">
+          <i class="fas fa-plus"></i>
+        </button>
+      </div>
     </div>
+    <!-- CALCULATOR UI END -->
+  </div>
 
-    <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script
-      src="https://code.jquery.com/jquery-3.3.1.min.js"
-      crossorigin="anonymous"
-    ></script>
-    <script
-      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
-      integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
-      crossorigin="anonymous"
-    ></script>
-    <script
-      src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
-      integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
-      crossorigin="anonymous"
-    ></script>
-    <script src="client.js"></script>
-  </body>
+  <!-- HISTORY OUTPUT -->
+  <div class="jumbotron text-center m-0 pt-0">
+    <h3 class="text-center">History</h3>
+    <button type="button" id="clearHistory" class="btn-sm m-2 btn btn-light">
+      Clear History
+    </button>
+    <ul class="list-group" id="history"></ul>
+  </div>
+
+  <!-- Optional JavaScript -->
+  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+    integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+    crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+    integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+    crossorigin="anonymous"></script>
+  <script src="client.js"></script>
+</body>
+
 </html>
