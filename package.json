@@ -1,12 +1,17 @@
 {
   "name": "server-side-calculator",
   "version": "1.0.0",
-  "description": "",
+  "description": "This is a simple server-side calculator which was made as a homework assignment.",
+  "homepage": "https://github.com/claudiorivera/server-side-calculator",
   "main": "server.js",
   "scripts": {
     "test": "jest",
     "start": "node server",
     "dev": "nodemon server & browser-sync start --proxy 'localhost:3000' --files 'public'"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/claudiorivera/server-side-calculator.git"
   },
   "keywords": [],
   "author": "",
@@ -14,5 +19,7 @@
   "dependencies": {
     "express": "^4.17.1"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "nodemon": "^2.0.3"
+  }
 }
