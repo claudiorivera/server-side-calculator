@@ -1,0 +1,21 @@
+{
+  "version": 2,
+  "builds": [{ "src": "server.js", "use": "@now/node-server" }],
+  "routes": [
+    {
+      "src": "/history",
+      "dest": "/server.js",
+      "methods": ["GET"]
+    },
+    {
+      "src": "/calculate",
+      "dest": "/server.js",
+      "methods": ["POST"]
+    },
+    {
+      "src": "/history",
+      "dest": "/server.js",
+      "methods": ["DELETE"]
+    }
+  ]
+}

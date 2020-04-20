@@ -1,6 +1,6 @@
 {
   "name": "server-side-calculator",
-  "version": "1.0.0",
+  "version": "1.1",
   "description": "This is a simple server-side calculator which was made as a homework assignment.",
   "homepage": "https://github.com/claudiorivera/server-side-calculator",
   "main": "server.js",
@@ -14,13 +14,10 @@
     "url": "https://github.com/claudiorivera/server-side-calculator.git"
   },
   "keywords": [],
-  "author": "",
+  "author": "Claudio Rivera",
   "license": "MIT",
   "dependencies": {
     "express": "^4.17.1"
-  },
-  "engines": {
-    "node": "13.13.0"
   },
   "devDependencies": {
     "nodemon": "^2.0.3"
