@@ -11,48 +11,6 @@ $(document).ready(() => {
   let operation = null;
   const $calcDisplay = $("#calcDisplay");
 
-  // Key codes for keyboard input
-  const keyCodes = {
-    8: "backspace / delete",
-    13: "enter",
-    27: "escape",
-    48: "0",
-    49: "1",
-    50: "2",
-    51: "3",
-    52: "4",
-    53: "5",
-    54: "6",
-    55: "7",
-    56: "8",
-    57: "9",
-    61: "equals (firefox)",
-    88: "x",
-    96: "numpad 0",
-    97: "numpad 1",
-    98: "numpad 2",
-    99: "numpad 3",
-    100: "numpad 4",
-    101: "numpad 5",
-    102: "numpad 6",
-    103: "numpad 7",
-    104: "numpad 8",
-    105: "numpad 9",
-    106: "multiply",
-    107: "add",
-    108: "numpad period (firefox)",
-    109: "subtract",
-    110: "decimal point",
-    111: "divide",
-    170: "*",
-    173: "minus (firefox), mute/unmute",
-    187: "equal sign",
-    189: "dash",
-    190: "period",
-    193: "?, / or °",
-    194: "numpad period (chrome)",
-  };
-
   // Disable the equals button to start
   $("#calculate").attr("disabled", "disabled");
 
