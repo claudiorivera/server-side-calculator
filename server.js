@@ -3,6 +3,7 @@ const express = require("express");
 const app = express();
 const PORT = process.env.PORT || 3000;
 const { calculate } = require("./calculate");
+const favicon = require('express-favicon');
 
 // History of operations
 const history = [];
@@ -10,6 +11,8 @@ const history = [];
 // Middleware
 app.use(express.json());
 app.use(express.static("public"));
+app.use(favicon(__dirname + '/public/favicon.ico'));
+
 
 // GET
 app.get("/history", (req, res) => {
