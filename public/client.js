@@ -31,9 +31,7 @@ $(document).ready(() => {
   $("#calculate").on("click", calculateButtonHandler);
 
   // Clear history button clears the history
-  $("#clearHistory").on("click", () => {
-    // TODO - Send DELETE command to server?
-  });
+  $("#clearHistory").on("click", clearHistory);
 
   // FUNCTION DECLARATIONS
   // Clear inputs
@@ -168,3 +166,16 @@ $(document).ready(() => {
     );
   }
 });
+
+function clearHistory() {
+  // Clear history display
+  $("#history").empty();
+
+  // DELETE history from /history
+  $.ajax({
+    type: "DELETE",
+    url: "/history",
+    dataType: "application/json",
+    contentType: "application/json; charset=utf-8",
+  });
+}
