@@ -6,7 +6,7 @@
   "main": "server.js",
   "scripts": {
     "test": "jest",
-    "start": "node server",
+    "start": "pm2 start server.js --watch --ignore-watch='node_modules'",
     "dev": "nodemon server"
   },
   "repository": {
