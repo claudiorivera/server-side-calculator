@@ -7,7 +7,8 @@
   "scripts": {
     "test": "jest",
     "start": "pm2 start server.js --watch",
-    "dev": "nodemon server & browser-sync start --proxy 'localhost:3000' --files 'public'"
+    "dev": "nodemon server & browser-sync start --proxy 'localhost:3000' --files 'public'",
+    "stop": "pm2 stop server.js"
   },
   "repository": {
     "type": "git",
