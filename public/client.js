@@ -112,10 +112,7 @@ const calculateButton = {
 };
 
 const handleNumber = (value) => {
-  if (document.querySelector("#calcDisplay").value === "0") {
-    document.querySelector("#calcDisplay").value = value;
-    operationButtons.enable();
-  }
+  //
 };
 const handleDecimal = (value) => {
   //
