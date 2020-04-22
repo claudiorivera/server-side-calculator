@@ -1,4 +1,4 @@
-module.exports = class Calculation {
+export default class Calculation {
   constructor(firstValue, secondValue, operation) {
     this._firstValue = firstValue;
     this._secondValue = secondValue;
@@ -39,4 +39,4 @@ module.exports = class Calculation {
     this._secondValue = undefined;
     this._operation = undefined;
   }
-};
+}

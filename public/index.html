@@ -44,16 +44,15 @@
           <input
             type="text"
             class="form-control col m-1 bg-white text-right"
-            name="calcDisplay"
             id="calcDisplay"
             value="0"
             readonly
           />
           <button
             type="button"
-            val="clearInput"
-            id="clearInput"
+            id="clearAll"
             class="font-weight-bold m-1 col-3 btn btn-dark"
+            accesskey="c"
           >
             C
           </button>
@@ -62,33 +61,33 @@
         <div class="row">
           <button
             type="button"
-            val="7"
             id="seven"
             class="numberButton font-weight-bold m-1 col btn btn-light"
+            accesskey="7"
           >
             7
           </button>
           <button
             type="button"
-            val="8"
             id="eight"
             class="numberButton font-weight-bold m-1 col btn btn-light"
+            accesskey="8"
           >
             8
           </button>
           <button
             type="button"
-            val="9"
             id="nine"
             class="numberButton font-weight-bold m-1 col btn btn-light"
+            accesskey="9"
           >
             9
           </button>
           <button
             id="divide"
             type="button"
-            val="divide"
             class="operationButton m-1 col-3 btn btn-primary"
+            accesskey="/"
           >
             <i class="fas fa-divide"></i>
           </button>
@@ -96,33 +95,33 @@
         <div class="row">
           <button
             type="button"
-            val="4"
             id="four"
             class="numberButton font-weight-bold m-1 col btn btn-light"
+            accesskey="4"
           >
             4
           </button>
           <button
             type="button"
-            val="5"
             id="five"
             class="numberButton font-weight-bold m-1 col btn btn-light"
+            accesskey="5"
           >
             5
           </button>
           <button
             type="button"
-            val="6"
             id="six"
             class="numberButton font-weight-bold m-1 col btn btn-light"
+            accesskey="6"
           >
             6
           </button>
           <button
             id="multiply"
             type="button"
-            val="multiply"
             class="operationButton m-1 col-3 btn btn-primary"
+            accesskey="*"
           >
             <i class="fas fa-times"></i>
           </button>
@@ -130,33 +129,33 @@
         <div class="row">
           <button
             type="button"
-            val="1"
             id="one"
             class="numberButton font-weight-bold m-1 col btn btn-light"
+            accesskey="1"
           >
             1
           </button>
           <button
             type="button"
-            val="2"
             id="two"
             class="numberButton font-weight-bold m-1 col btn btn-light"
+            accesskey="2"
           >
             2
           </button>
           <button
             type="button"
-            val="3"
             id="three"
             class="numberButton font-weight-bold m-1 col btn btn-light"
+            accesskey="3"
           >
             3
           </button>
           <button
             id="subtract"
             type="button"
-            val="subtract"
             class="operationButton m-1 col-3 btn btn-primary"
+            accesskey="-"
           >
             <i class="fas fa-minus"></i>
           </button>
@@ -164,33 +163,33 @@
         <div class="row">
           <button
             type="button"
-            val="."
-            id="point"
+            id="decimalPointButton"
             class="numberButton font-weight-bold m-1 col btn btn-light"
+            accesskey="."
           >
             .
           </button>
           <button
             type="button"
-            val="0"
             id="zero"
             class="numberButton font-weight-bold m-1 col btn btn-light"
+            accesskey="0"
           >
             0
           </button>
           <button
             type="button"
-            id="calculate"
-            val="calculate"
+            id="calculateButton"
             class="m-1 col btn btn-success"
+            accesskey="Enter"
           >
             <i class="fas fa-equals"></i>
           </button>
           <button
             id="add"
             type="button"
-            val="add"
             class="operationButton m-1 col-3 btn btn-primary"
+            accesskey="+"
           >
             <i class="fas fa-plus"></i>
           </button>
@@ -202,19 +201,18 @@
         <h3 class="text-center">History</h3>
         <button
           type="button"
-          id="clearHistory"
+          id="clearHistoryButton"
           class="btn-sm m-2 btn btn-light"
         >
           Clear History
         </button>
-        <ul class="list-group" id="history"></ul>
+        <ul class="list-group" id="historyListParent"></ul>
       </div>
     </div>
 
-    <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script
-      src="https://code.jquery.com/jquery-3.3.1.min.js"
+      src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+      integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
       crossorigin="anonymous"
     ></script>
     <script
