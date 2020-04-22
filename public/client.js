@@ -11,16 +11,9 @@ const clearValues = () => {
 const getResultsHistory = () => {
   let resultsHistory = [];
 
-  fetch("/history")
-    .then((response) => {
-      return response.json();
-    })
-    .then((data) => {
-      resultsHistory = data;
-    });
-
   return resultsHistory;
 };
+
 const sendCalculation = (currentCalculation) => {
   fetch("/calculate", {
     method: "POST",
@@ -28,18 +21,22 @@ const sendCalculation = (currentCalculation) => {
       "Content-Type": "application/json",
     },
     body: JSON.stringify(currentCalculation),
-  }).catch((error) => {
-    console.error("Error:", error);
-  });
-};
-const refreshHistory = () => {
-  let resultsHistory = getResultsHistory();
-  resultsHistory.forEach((result) => {
-    let li = document.createElement("li");
-    li.classList.add("list-group-item"); // Bootstrap class
-    li.innerText = `${result.firstValue} ${result.operation} ${result.secondValue} = ${result.result}`;
-    document.querySelector("#historyListParent").append(li);
-  });
+  })
+    .then((response) => {
+      return response.json();
+    })
+    .then((resultsHistory) => {
+      clearAll();
+      resultsHistory.forEach((result) => {
+        let li = document.createElement("li");
+        li.classList.add("list-group-item"); // Bootstrap class
+        li.innerText = `${result.firstValue} ${result.operation} ${result.secondValue} = ${result.result}`;
+        document.querySelector("#historyListParent").append(li);
+      });
+    })
+    .catch((error) => {
+      console.error("Error:", error);
+    });
 };
 const clearAll = () => {
   clearValues();
@@ -159,7 +156,7 @@ const handleClear = () => {
 
 // DOM READY
 document.addEventListener("DOMContentLoaded", () => {
-  refreshHistory();
+  // refreshHistory();
   // EVENT LISTENERS
   document.querySelectorAll("button").forEach((element) => {
     element.addEventListener("click", (event) => {
