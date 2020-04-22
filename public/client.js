@@ -2,43 +2,35 @@ const currentCalculation = {
   firstValue: null,
   secondValue: null,
   operation: null,
-  readyToOperate: false,
-  readyToCalculate: false,
-  clearValues: () => {
-    this.firstValue = null;
-    this.secondValue = null;
-    this.operation = null;
-    this.readyToOperate = false;
-    this.readyToCalculate = false;
-  },
+};
+const clearValues = () => {
+  currentCalculation.firstValue = null;
+  currentCalculation.secondValue = null;
+  currentCalculation.operation = null;
 };
 const getResultsHistory = () => {
-  // TODO - Grab these from server
-  let resultsHistory = [
-    { firstValue: 1, secondValue: 2, operation: "add", result: 3 },
-    { firstValue: 4, secondValue: 3, operation: "subtract", result: 1 },
-  ];
-  resultsHistory.forEach((result) => {
-    // Parse operation name into symbol
-    switch (result.operation) {
-      case "add":
-        result.operation = "+";
-        break;
-      case "subtract":
-        result.operation = "-";
-        break;
-      case "multiply":
-        result.operation = "*";
-        break;
-      case "divide":
-        result.operation = "/";
-        break;
-      default:
-        result.operation = "💩";
-        break;
-    }
-  });
+  let resultsHistory = [];
+
+  fetch("/history")
+    .then((response) => {
+      return response.json();
+    })
+    .then((data) => {
+      resultsHistory = data;
+    });
+
   return resultsHistory;
+};
+const sendCalculation = (currentCalculation) => {
+  fetch("/calculate", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(currentCalculation),
+  }).catch((error) => {
+    console.error("Error:", error);
+  });
 };
 const refreshHistory = () => {
   let resultsHistory = getResultsHistory();
@@ -50,9 +42,11 @@ const refreshHistory = () => {
   });
 };
 const clearAll = () => {
-  currentCalculation.clearValues();
+  clearValues();
   operationButtons.disable();
   calculateButton.disable();
+  decimalPointButton.enable();
+  document.querySelector("#calcDisplay").value = "0";
 };
 const getButtonType = (event) => {
   switch (event.currentTarget.accessKey) {
@@ -110,32 +104,62 @@ const calculateButton = {
       .setAttribute("disabled", "disabled");
   },
 };
-
+const decimalPointButton = {
+  enable: () => {
+    document.querySelector("#decimalPointButton").removeAttribute("disabled");
+  },
+  disable: () => {
+    document
+      .querySelector("#decimalPointButton")
+      .setAttribute("disabled", "disabled");
+  },
+};
 const handleNumber = (value) => {
-  //
+  // Handle first value input
+  if (!currentCalculation.firstValue) {
+    if (document.querySelector("#calcDisplay").value === "0") {
+      document.querySelector("#calcDisplay").value = value;
+      operationButtons.enable();
+    } else {
+      document.querySelector("#calcDisplay").value += value;
+    }
+  }
+  // Handle second value input
+  if (currentCalculation.firstValue) {
+    if (document.querySelector("#calcDisplay").value === "0") {
+      document.querySelector("#calcDisplay").value = value;
+      calculateButton.enable();
+    } else {
+      document.querySelector("#calcDisplay").value += value;
+    }
+  }
 };
 const handleDecimal = (value) => {
-  //
-  console.log(`handleDecimal with value ${value}`);
+  // If the value displayed is not a floating number
+  if (Number(document.querySelector("#calcDisplay").value) % 1 === 0) {
+    document.querySelector("#calcDisplay").value += value;
+    decimalPointButton.disable();
+  }
 };
 const handleOperation = (value) => {
-  //
-  console.log(`handleOperation with value ${value}`);
+  currentCalculation.firstValue = document.querySelector("#calcDisplay").value;
+  currentCalculation.operation = value;
+  document.querySelector("#calcDisplay").value = "0";
+  operationButtons.disable();
+  decimalPointButton.enable();
 };
-const handleEnter = (value) => {
-  //
-  console.log(`handleEnter with value ${value}`);
+const handleEnter = () => {
+  currentCalculation.secondValue = document.querySelector("#calcDisplay").value;
+  document.querySelector("#calcDisplay").value = "0";
+  sendCalculation(currentCalculation);
 };
-const handleClear = (value) => {
-  //
-  console.log(`handleClear with value ${value}`);
+const handleClear = () => {
+  clearAll();
 };
 
 // DOM READY
 document.addEventListener("DOMContentLoaded", () => {
-  clearAll();
   refreshHistory();
-
   // EVENT LISTENERS
   document.querySelectorAll("button").forEach((element) => {
     element.addEventListener("click", (event) => {

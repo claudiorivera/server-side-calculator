@@ -2,16 +2,16 @@
 function calculate(firstValue, secondValue, operation) {
   // Return a value calculated based on the operator
   switch (operation) {
-    case "add":
+    case "+":
       return firstValue + secondValue;
       break;
-    case "subtract":
+    case "-":
       return firstValue - secondValue;
       break;
-    case "multiply":
+    case "*":
       return firstValue * secondValue;
       break;
-    case "divide":
+    case "/":
       return firstValue / secondValue;
       break;
     // Return 0 if a different operation is passed in
