@@ -1,13 +1,11 @@
+const Calculation = require("./Calculation");
+const theCalculation = new Calculation();
+
 // Wait for DOM
 $(document).ready(() => {
   // INITIALIZE DISPLAY AND VARIABLES
   // Update the history display
   updateHistory();
-
-  // Declare global variables and convenience variables
-  let firstValue = null;
-  let secondValue = null;
-  let operation = null;
 
   // Disable the equals button to start
   $("#calculate").attr("disabled", "disabled");
