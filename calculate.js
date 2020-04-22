@@ -3,16 +3,16 @@ function calculate(firstValue, secondValue, operation) {
   // Return a value calculated based on the operator
   switch (operation) {
     case "+":
-      return firstValue + secondValue;
+      return Number(firstValue) + Number(secondValue);
       break;
     case "-":
-      return firstValue - secondValue;
+      return Number(firstValue) - Number(secondValue);
       break;
     case "*":
-      return firstValue * secondValue;
+      return Number(firstValue) * Number(secondValue);
       break;
     case "/":
-      return firstValue / secondValue;
+      return Number(firstValue) / Number(secondValue);
       break;
     // Return 0 if a different operation is passed in
     default:

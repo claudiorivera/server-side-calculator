@@ -9,25 +9,21 @@ const clearValues = () => {
   currentCalculation.operation = null;
 };
 const getResultsHistory = () => {
-  let resultsHistory = [];
-
-  return resultsHistory;
-};
-
-const sendCalculation = (currentCalculation) => {
-  fetch("/calculate", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(currentCalculation),
-  })
+  fetch("/history")
     .then((response) => {
       return response.json();
     })
     .then((resultsHistory) => {
-      clearAll();
+      // Empty history display before we add the results
+      var child = document.querySelector("#historyListParent").lastElementChild;
+      while (child) {
+        document.querySelector("#historyListParent").removeChild(child);
+        child = document.querySelector("#historyListParent").lastElementChild;
+      }
+      // Add each result as a list item
       resultsHistory.forEach((result) => {
+        console.log(result.result);
+
         let li = document.createElement("li");
         li.classList.add("list-group-item"); // Bootstrap class
         li.innerText = `${result.firstValue} ${result.operation} ${result.secondValue} = ${result.result}`;
@@ -37,6 +33,28 @@ const sendCalculation = (currentCalculation) => {
     .catch((error) => {
       console.error("Error:", error);
     });
+};
+
+const clearResultsHistory = () => {
+  fetch("/history", {
+    method: "DELETE",
+  })
+    .then(getResultsHistory())
+    .catch((error) => {
+      console.error("Error:", error);
+    });
+};
+
+const sendCalculation = (currentCalculation) => {
+  fetch("/calculate", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(currentCalculation),
+  }).catch((error) => {
+    console.error("Error:", error);
+  });
 };
 const clearAll = () => {
   clearValues();
@@ -149,6 +167,8 @@ const handleEnter = () => {
   currentCalculation.secondValue = document.querySelector("#calcDisplay").value;
   document.querySelector("#calcDisplay").value = "0";
   sendCalculation(currentCalculation);
+  clearAll();
+  getResultsHistory();
 };
 const handleClear = () => {
   clearAll();
@@ -156,21 +176,24 @@ const handleClear = () => {
 
 // DOM READY
 document.addEventListener("DOMContentLoaded", () => {
-  // refreshHistory();
-  // EVENT LISTENERS
+  getResultsHistory();
+
+  document
+    .querySelector("#clearHistoryButton")
+    .addEventListener("click", clearResultsHistory);
+
   document.querySelectorAll("button").forEach((element) => {
-    element.addEventListener("click", (event) => {
-      //
-      if (getButtonType(event) === "number") {
-        handleNumber(event.target.accessKey);
-      } else if (getButtonType(event) === "decimal") {
-        handleDecimal(event.target.accessKey);
-      } else if (getButtonType(event) === "operation") {
-        handleOperation(event.target.accessKey);
-      } else if (getButtonType(event) === "enter") {
-        handleEnter(event.target.accessKey);
-      } else if (getButtonType(event) === "clear") {
-        handleClear(event.target.accessKey);
+    element.addEventListener("click", (clickEvent) => {
+      if (getButtonType(clickEvent) === "number") {
+        handleNumber(clickEvent.target.accessKey);
+      } else if (getButtonType(clickEvent) === "decimal") {
+        handleDecimal(clickEvent.target.accessKey);
+      } else if (getButtonType(clickEvent) === "operation") {
+        handleOperation(clickEvent.target.accessKey);
+      } else if (getButtonType(clickEvent) === "enter") {
+        handleEnter(clickEvent.target.accessKey);
+      } else if (getButtonType(clickEvent) === "clear") {
+        handleClear(clickEvent.target.accessKey);
       } else return;
     });
   });
