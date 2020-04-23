@@ -1,4 +1,3 @@
-// Global module imports
 const express = require("express");
 const favicon = require("express-favicon");
 const path = require("path");
@@ -6,14 +5,12 @@ const webhook = require("express-github-webhook");
 require("dotenv").config();
 const { exec } = require("child_process");
 
-// My module imports
 const { calculate } = require("./calculate");
 
 // Environmental variables
 const PORT = process.env.PORT || 3000;
 const SECRET_TOKEN = process.env.SECRET_TOKEN;
 
-// Instantiate Express
 const app = express();
 const webHookHandler = webhook({ path: "/webhook", secret: SECRET_TOKEN });
 
@@ -42,13 +39,10 @@ webHookHandler.on("*", function (event, repo, data) {
   });
 });
 
-// GET
 app.get("/history", (req, res) => {
-  // Send the history
   res.json(history);
 });
 
-// POST
 app.post("/calculate", (req, res) => {
   // Push new object (with computed result) into the history array
   history.push({
@@ -61,11 +55,9 @@ app.post("/calculate", (req, res) => {
       req.body.operation
     ),
   });
-  // Send the history
   res.json(history);
 });
 
-// DELETE
 app.delete("/history", (req, res) => {
   history.splice(0, history.length);
   res.json(history);
