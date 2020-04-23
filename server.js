@@ -40,8 +40,6 @@ webHookHandler.on("*", function (event, repo, data) {
 });
 
 app.get("/history", (req, res) => {
-  console.log(`JSON.stringify(history): ${JSON.stringify(history)}`);
-
   res.json(history);
 });
 
@@ -57,7 +55,6 @@ app.post("/calculate", (req, res) => {
       req.body.operation
     ),
   });
-  console.log(`JSON.stringify(history): ${JSON.stringify(history)}`);
   res.json(history);
 });
 
