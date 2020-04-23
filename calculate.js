@@ -3,20 +3,20 @@ function calculate(firstValue, secondValue, operation) {
   // Return a value calculated based on the operator
   switch (operation) {
     case "+":
-      return Number(firstValue) + Number(secondValue);
+      return String(Number(firstValue) + Number(secondValue));
       break;
     case "-":
-      return Number(firstValue) - Number(secondValue);
+      return String(Number(firstValue) - Number(secondValue));
       break;
     case "*":
-      return Number(firstValue) * Number(secondValue);
+      return String(Number(firstValue) * Number(secondValue));
       break;
     case "/":
-      return Number(firstValue) / Number(secondValue);
+      return String(Number(firstValue) / Number(secondValue));
       break;
     // Return 0 if a different operation is passed in
     default:
-      return 0;
+      return "Error";
       break;
   }
 }
