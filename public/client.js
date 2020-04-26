@@ -22,8 +22,6 @@ const getResultsHistory = () => {
       }
       // Add each result as a list item
       resultsHistory.forEach((result) => {
-        console.log(result.result);
-
         let li = document.createElement("li");
         li.classList.add("list-group-item"); // Bootstrap class
         li.innerText = `${result.firstValue} ${result.operation} ${result.secondValue} = ${result.result}`;
@@ -35,14 +33,15 @@ const getResultsHistory = () => {
     });
 };
 
-const clearResultsHistory = () => {
-  fetch("/history", {
-    method: "DELETE",
-  })
-    .then(getResultsHistory())
-    .catch((error) => {
-      console.error("Error:", error);
+const clearResultsHistory = async () => {
+  try {
+    let response = await fetch("/history", {
+      method: "DELETE",
     });
+    getResultsHistory();
+  } catch (err) {
+    console.error(err);
+  }
 };
 
 const sendCalculation = (currentCalculation) => {
