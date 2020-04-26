@@ -54,6 +54,7 @@ const sendCalculation = async (currentCalculation) => {
       body: JSON.stringify(currentCalculation),
     });
     getResultsHistory();
+    return response;
   } catch (err) {
     console.error(err);
   }
@@ -166,13 +167,21 @@ const handleOperation = (value) => {
   operationButtons.disable();
   decimalPointButton.enable();
 };
-const handleEnter = () => {
-  currentCalculation.secondValue = document.querySelector("#calcDisplay").value;
-  document.querySelector("#calcDisplay").value = "0";
-  sendCalculation(currentCalculation);
-  clearAll();
-  getResultsHistory();
+
+const handleEnter = async () => {
+  try {
+    currentCalculation.secondValue = document.querySelector(
+      "#calcDisplay"
+    ).value;
+    document.querySelector("#calcDisplay").value = "0";
+    let response = await sendCalculation(currentCalculation);
+    clearAll();
+    getResultsHistory();
+  } catch (err) {
+    console.log(err);
+  }
 };
+
 const handleClear = () => {
   clearAll();
 };
