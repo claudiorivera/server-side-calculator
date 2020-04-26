@@ -1,6 +1,6 @@
 {
   "name": "server-side-calculator",
-  "version": "2.1.0",
+  "version": "2.1.1",
   "description": "This is a simple server-side calculator which was made for a homework assignment.",
   "homepage": "https://github.com/claudiorivera/server-side-calculator",
   "main": "server.js",
