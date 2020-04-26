@@ -44,17 +44,21 @@ const clearResultsHistory = async () => {
   }
 };
 
-const sendCalculation = (currentCalculation) => {
-  fetch("/calculate", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(currentCalculation),
-  }).catch((error) => {
-    console.error("Error:", error);
-  });
+const sendCalculation = async (currentCalculation) => {
+  try {
+    let response = await fetch("/calculate", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(currentCalculation),
+    });
+    getResultsHistory();
+  } catch (err) {
+    console.error(err);
+  }
 };
+
 const clearAll = () => {
   clearValues();
   operationButtons.disable();
