@@ -8,29 +8,29 @@ const clearValues = () => {
   currentCalculation.secondValue = null;
   currentCalculation.operation = null;
 };
-const getResultsHistory = () => {
-  fetch("/history")
-    .then((response) => {
-      return response.json();
-    })
-    .then((resultsHistory) => {
-      // Empty history display before we add the results
-      var child = document.querySelector("#historyListParent").lastElementChild;
-      while (child) {
-        document.querySelector("#historyListParent").removeChild(child);
-        child = document.querySelector("#historyListParent").lastElementChild;
-      }
-      // Add each result as a list item
-      resultsHistory.forEach((result) => {
-        let li = document.createElement("li");
-        li.classList.add("list-group-item"); // Bootstrap class
-        li.innerText = `${result.firstValue} ${result.operation} ${result.secondValue} = ${result.result}`;
-        document.querySelector("#historyListParent").append(li);
-      });
-    })
-    .catch((error) => {
-      console.error("Error:", error);
+
+const getResultsHistory = async () => {
+  try {
+    const response = await fetch("/history");
+    const resultsHistory = await response.json();
+
+    // Empty history display before we add the results
+    var child = document.querySelector("#historyListParent").lastElementChild;
+    while (child) {
+      document.querySelector("#historyListParent").removeChild(child);
+      child = document.querySelector("#historyListParent").lastElementChild;
+    }
+
+    // Add each result as a list item
+    resultsHistory.forEach((result) => {
+      let li = document.createElement("li");
+      li.classList.add("list-group-item"); // Bootstrap class
+      li.innerText = `${result.firstValue} ${result.operation} ${result.secondValue} = ${result.result}`;
+      document.querySelector("#historyListParent").append(li);
     });
+  } catch (err) {
+    console.log(err);
+  }
 };
 
 const clearResultsHistory = async () => {
