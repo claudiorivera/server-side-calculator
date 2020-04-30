@@ -54,7 +54,6 @@ const sendCalculation = async (currentCalculation) => {
       body: JSON.stringify(currentCalculation),
     });
     getResultsHistory();
-    return response;
   } catch (err) {
     console.error(err);
   }
