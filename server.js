@@ -1,14 +1,14 @@
+require("dotenv").config();
 const express = require("express");
 const favicon = require("express-favicon");
 const path = require("path");
 const webhook = require("express-github-webhook");
-require("dotenv").config();
 const { exec } = require("child_process");
 
 const { calculate } = require("./calculate");
 
 // Environmental variables
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 5000;
 const SECRET_TOKEN = process.env.SECRET_TOKEN;
 
 const app = express();
