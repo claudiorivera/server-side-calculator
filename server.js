@@ -8,7 +8,7 @@ const { exec } = require("child_process");
 const { calculate } = require("./calculate");
 
 // Environmental variables
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT;
 const SECRET_TOKEN = process.env.SECRET_TOKEN;
 
 const app = express();
