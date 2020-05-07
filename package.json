@@ -6,9 +6,8 @@
   "main": "server.js",
   "scripts": {
     "test": "jest",
-    "start": "pm2 start server.js --watch --name server-side-calculator",
-    "dev": "nodemon server & browser-sync start --proxy 'localhost:5000' --files 'public'",
-    "stop": "pm2 stop server-side-calculator"
+    "start": "node server",
+    "dev": "nodemon server & browser-sync start --proxy 'localhost:5000' --files 'public'"
   },
   "repository": {
     "type": "git",
