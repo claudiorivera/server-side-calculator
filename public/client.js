@@ -21,10 +21,10 @@ const getResultsHistory = async () => {
       child = document.querySelector("#historyListParent").lastElementChild;
     }
 
-    // Add each result as a list item
+    // Add each result as a list item (bootstrap class)
     resultsHistory.forEach((result) => {
       let li = document.createElement("li");
-      li.classList.add("list-group-item"); // Bootstrap class
+      li.classList.add("list-group-item");
       li.innerText = `${result.firstValue} ${result.operation} ${result.secondValue} = ${result.result}`;
       document.querySelector("#historyListParent").append(li);
     });
@@ -35,7 +35,7 @@ const getResultsHistory = async () => {
 
 const clearResultsHistory = async () => {
   try {
-    let response = await fetch("/history", {
+    await fetch("/history", {
       method: "DELETE",
     });
     getResultsHistory();
@@ -46,7 +46,7 @@ const clearResultsHistory = async () => {
 
 const sendCalculation = async (currentCalculation) => {
   try {
-    let response = await fetch("/calculate", {
+    await fetch("/calculate", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -162,6 +162,7 @@ const handleDecimal = (value) => {
 const handleOperation = (value) => {
   currentCalculation.firstValue = document.querySelector("#calcDisplay").value;
   currentCalculation.operation = value;
+  // Reset the display to 0
   document.querySelector("#calcDisplay").value = "0";
   operationButtons.disable();
   decimalPointButton.enable();
@@ -173,7 +174,7 @@ const handleEnter = async () => {
       "#calcDisplay"
     ).value;
     document.querySelector("#calcDisplay").value = "0";
-    let response = await sendCalculation(currentCalculation);
+    await sendCalculation(currentCalculation);
     clearAll();
     getResultsHistory();
   } catch (err) {
