@@ -6,8 +6,8 @@
   "main": "server.js",
   "scripts": {
     "test": "jest",
-    "start": "node server",
-    "dev": "nodemon server & browser-sync start --proxy 'localhost:5000' --files 'public'"
+    "start": "node index",
+    "dev": "nodemon index & browser-sync start --proxy 'localhost:5000' --files 'public'"
   },
   "repository": {
     "type": "git",
