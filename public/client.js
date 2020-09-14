@@ -1,8 +1,8 @@
 class Calculation {
-  constructor(firstValue = null, secondValue = null, operation = null) {
-    (this.firstValue = firstValue),
-      (this.secondValue = secondValue),
-      (this.operation = operation);
+  constructor() {
+    (this.firstValue = null),
+      (this.secondValue = null),
+      (this.operation = null);
   }
   clearValues() {
     this.firstValue = null;
@@ -12,6 +12,37 @@ class Calculation {
 }
 
 const calculation = new Calculation();
+
+// Class that provides enabling/disabling
+class Button {
+  constructor(id) {
+    this.element = document.querySelector(`#${id}`);
+  }
+
+  enable = () => {
+    this.element.removeAttribute("disabled");
+  };
+
+  disable = () => {
+    this.element.setAttribute("disabled", "disabled");
+  };
+}
+
+const calculateButton = new Button("calculateButton");
+const decimalPointButton = new Button("decimalPointButton");
+// TODO: Refactor the Button class to allow for classes or array of buttons
+const operationButtons = {
+  enable: () => {
+    document.querySelectorAll(".operationButton").forEach((button) => {
+      button.removeAttribute("disabled");
+    });
+  },
+  disable: () => {
+    document.querySelectorAll(".operationButton").forEach((button) => {
+      button.setAttribute("disabled", "disabled");
+    });
+  },
+};
 
 const getResults = async () => {
   try {
@@ -99,41 +130,6 @@ const getButtonType = (e) => {
   }
 };
 
-const operationButtons = {
-  enable: () => {
-    document.querySelectorAll(".operationButton").forEach((button) => {
-      button.removeAttribute("disabled");
-    });
-  },
-  disable: () => {
-    document.querySelectorAll(".operationButton").forEach((button) => {
-      button.setAttribute("disabled", "disabled");
-    });
-  },
-};
-
-const calculateButton = {
-  enable: () => {
-    document.querySelector("#calculateButton").removeAttribute("disabled");
-  },
-  disable: () => {
-    document
-      .querySelector("#calculateButton")
-      .setAttribute("disabled", "disabled");
-  },
-};
-
-const decimalPointButton = {
-  enable: () => {
-    document.querySelector("#decimalPointButton").removeAttribute("disabled");
-  },
-  disable: () => {
-    document
-      .querySelector("#decimalPointButton")
-      .setAttribute("disabled", "disabled");
-  },
-};
-
 const handleNumber = (value) => {
   // Handle first value input
   if (!calculation.firstValue) {
@@ -186,6 +182,7 @@ const handleEnter = async () => {
 
 // DOM READY
 document.addEventListener("DOMContentLoaded", () => {
+  clearAll();
   getResults();
 
   document
