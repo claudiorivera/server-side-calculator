@@ -3,6 +3,7 @@ const currentCalculation = {
   secondValue: null,
   operation: null,
 };
+
 const clearValues = () => {
   currentCalculation.firstValue = null;
   currentCalculation.secondValue = null;
@@ -11,19 +12,19 @@ const clearValues = () => {
 
 const getResultsHistory = async () => {
   try {
-    const response = await fetch("/history");
-    const resultsHistory = await response.json();
+    const response = await fetch("/results");
+    const data = await response.json();
 
     // Empty history display before we add the results
-    var child = document.querySelector("#historyListParent").lastElementChild;
-    while (child) {
-      document.querySelector("#historyListParent").removeChild(child);
-      child = document.querySelector("#historyListParent").lastElementChild;
+    // https://developer.mozilla.org/en-US/docs/Web/API/Node/removeChild
+    const parent = document.querySelector("#historyListParent");
+    while (parent.firstChild) {
+      parent.removeChild(parent.firstChild);
     }
 
     // Add each result as a list item (bootstrap class)
-    resultsHistory.forEach((result) => {
-      let li = document.createElement("li");
+    data.forEach((result) => {
+      const li = document.createElement("li");
       li.classList.add("list-group-item");
       li.innerText = `${result.firstValue} ${result.operation} ${result.secondValue} = ${result.result}`;
       document.querySelector("#historyListParent").append(li);
@@ -35,7 +36,7 @@ const getResultsHistory = async () => {
 
 const clearResultsHistory = async () => {
   try {
-    await fetch("/history", {
+    await fetch("/results", {
       method: "DELETE",
     });
     getResultsHistory();
@@ -46,14 +47,13 @@ const clearResultsHistory = async () => {
 
 const sendCalculation = async (currentCalculation) => {
   try {
-    await fetch("/calculate", {
+    await fetch("/results", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(currentCalculation),
     });
-    getResultsHistory();
   } catch (err) {
     console.error(err);
   }
@@ -66,8 +66,9 @@ const clearAll = () => {
   decimalPointButton.enable();
   document.querySelector("#calcDisplay").value = "0";
 };
-const getButtonType = (event) => {
-  switch (event.currentTarget.accessKey) {
+
+const getButtonType = (e) => {
+  switch (e.target.dataset.key) {
     case "0":
     case "1":
     case "2":
@@ -79,27 +80,22 @@ const getButtonType = (event) => {
     case "8":
     case "9":
       return "number";
-      break;
     case "+":
     case "-":
     case "*":
     case "/":
       return "operation";
-      break;
     case ".":
       return "decimal";
-      break;
     case "Enter":
       return "enter";
-      break;
     case "c":
       return "clear";
-      break;
     default:
       return;
-      break;
   }
 };
+
 const operationButtons = {
   enable: () => {
     document.querySelectorAll(".operationButton").forEach((button) => {
@@ -112,6 +108,7 @@ const operationButtons = {
     });
   },
 };
+
 const calculateButton = {
   enable: () => {
     document.querySelector("#calculateButton").removeAttribute("disabled");
@@ -122,6 +119,7 @@ const calculateButton = {
       .setAttribute("disabled", "disabled");
   },
 };
+
 const decimalPointButton = {
   enable: () => {
     document.querySelector("#decimalPointButton").removeAttribute("disabled");
@@ -132,6 +130,7 @@ const decimalPointButton = {
       .setAttribute("disabled", "disabled");
   },
 };
+
 const handleNumber = (value) => {
   // Handle first value input
   if (!currentCalculation.firstValue) {
@@ -152,13 +151,15 @@ const handleNumber = (value) => {
     }
   }
 };
+
 const handleDecimal = (value) => {
   // If the value displayed is not a floating number
-  if (Number(document.querySelector("#calcDisplay").value) % 1 === 0) {
+  if (parseInt(document.querySelector("#calcDisplay").value) % 1 === 0) {
     document.querySelector("#calcDisplay").value += value;
     decimalPointButton.disable();
   }
 };
+
 const handleOperation = (value) => {
   currentCalculation.firstValue = document.querySelector("#calcDisplay").value;
   currentCalculation.operation = value;
@@ -194,19 +195,27 @@ document.addEventListener("DOMContentLoaded", () => {
     .querySelector("#clearHistoryButton")
     .addEventListener("click", clearResultsHistory);
 
-  document.querySelectorAll("button").forEach((element) => {
-    element.addEventListener("click", (clickEvent) => {
-      if (getButtonType(clickEvent) === "number") {
-        handleNumber(clickEvent.target.accessKey);
-      } else if (getButtonType(clickEvent) === "decimal") {
-        handleDecimal(clickEvent.target.accessKey);
-      } else if (getButtonType(clickEvent) === "operation") {
-        handleOperation(clickEvent.target.accessKey);
-      } else if (getButtonType(clickEvent) === "enter") {
-        handleEnter(clickEvent.target.accessKey);
-      } else if (getButtonType(clickEvent) === "clear") {
-        handleClear(clickEvent.target.accessKey);
-      } else return;
+  document.querySelectorAll("button").forEach((button) => {
+    button.addEventListener("click", (e) => {
+      switch (getButtonType(e)) {
+        case "number":
+          handleNumber(e.target.dataset.key);
+          break;
+        case "decimal":
+          handleDecimal(e.target.dataset.key);
+          break;
+        case "operation":
+          handleOperation(e.target.dataset.key);
+          break;
+        case "enter":
+          handleEnter(e.target.dataset.key);
+          break;
+        case "clear":
+          handleClear(e.target.dataset.key);
+          break;
+        default:
+          break;
+      }
     });
   });
 });
