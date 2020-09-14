@@ -7,6 +7,7 @@ const results = [];
 
 // GET /results - Get all calculations
 router.get("/", (req, res) => {
+  req.app.io.emit("message", results);
   res.json(results);
 });
 

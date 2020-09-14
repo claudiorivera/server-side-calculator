@@ -1,3 +1,21 @@
+const socket = io();
+socket.on("message", (data) => {
+  // Empty history display before we add the results
+  // https://developer.mozilla.org/en-US/docs/Web/API/Node/removeChild
+  const parent = document.querySelector("#historyListContainer");
+  while (parent.firstChild) {
+    parent.removeChild(parent.firstChild);
+  }
+
+  // Add each result as a list item (bootstrap class)
+  data.forEach((result) => {
+    const li = document.createElement("li");
+    li.classList.add("list-group-item");
+    li.innerText = `${result.firstValue} ${result.operation} ${result.secondValue} = ${result.result}`;
+    document.querySelector("#historyListContainer").append(li);
+  });
+});
+
 // Class that provides a clearValues method
 class Calculation {
   constructor(firstValue, secondValue, operation) {
