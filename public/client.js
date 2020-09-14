@@ -1,8 +1,9 @@
+// Class that provides a clearValues method
 class Calculation {
-  constructor() {
-    (this.firstValue = null),
-      (this.secondValue = null),
-      (this.operation = null);
+  constructor(firstValue, secondValue, operation) {
+    this.firstValue = firstValue || null;
+    this.secondValue = secondValue || null;
+    this.operation = operation || null;
   }
   clearValues() {
     this.firstValue = null;
@@ -13,7 +14,7 @@ class Calculation {
 
 const calculation = new Calculation();
 
-// Class that provides enabling/disabling
+// Class for buttons which provides a method for enabling/disabling
 class Button {
   constructor(id) {
     this.element = document.querySelector(`#${id}`);
@@ -30,7 +31,8 @@ class Button {
 
 const calculateButton = new Button("calculateButton");
 const decimalPointButton = new Button("decimalPointButton");
-// TODO: Refactor the Button class to allow for classes or array of buttons
+
+// TODO: Refactor the Button class to allow for classes or array of buttons, like these
 const operationButtons = {
   enable: () => {
     document.querySelectorAll(".operationButton").forEach((button) => {
@@ -74,6 +76,7 @@ const clearResultsHistory = async () => {
       method: "DELETE",
     });
     getResults();
+    clearAll();
   } catch (err) {
     alert(err);
   }
@@ -88,6 +91,8 @@ const sendCalculation = async (calculation) => {
       },
       body: JSON.stringify(calculation),
     });
+    getResults();
+    clearAll();
   } catch (err) {
     alert(err);
   }
@@ -152,7 +157,8 @@ const handleNumber = (value) => {
 };
 
 const handleDecimal = (value) => {
-  // If the value displayed is not a floating number
+  // If the value displayed is not a floating number, concatenate as a string and disable
+  // the decimal button
   if (parseInt(document.querySelector("#calcDisplay").value) % 1 === 0) {
     document.querySelector("#calcDisplay").value += value;
     decimalPointButton.disable();
@@ -173,8 +179,8 @@ const handleEnter = async () => {
     calculation.secondValue = document.querySelector("#calcDisplay").value;
     document.querySelector("#calcDisplay").value = "0";
     await sendCalculation(calculation);
-    clearAll();
     getResults();
+    clearAll();
   } catch (err) {
     alert(err);
   }
@@ -182,8 +188,8 @@ const handleEnter = async () => {
 
 // DOM READY
 document.addEventListener("DOMContentLoaded", () => {
-  clearAll();
   getResults();
+  clearAll();
 
   document
     .querySelector("#clearHistoryButton")

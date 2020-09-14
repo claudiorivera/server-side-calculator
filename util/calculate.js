@@ -1,15 +1,15 @@
 // Function takes in two values and an operator (ie. "add", "subtract")
-// And returns a the calculated result
+// And returns the calculated result
 const calculate = (firstValue, secondValue, operation) => {
   switch (operation) {
     case "+":
-      return parseInt(firstValue) + parseInt(secondValue);
+      return parseFloat(firstValue) + parseFloat(secondValue);
     case "-":
-      return parseInt(firstValue) - parseInt(secondValue);
+      return parseFloat(firstValue) - parseFloat(secondValue);
     case "*":
-      return parseInt(firstValue) * parseInt(secondValue);
+      return parseFloat(firstValue) * parseFloat(secondValue);
     case "/":
-      return parseInt(firstValue) / parseInt(secondValue);
+      return parseFloat(firstValue) / parseFloat(secondValue);
     default:
       return "Error";
   }
