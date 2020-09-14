@@ -1,24 +1,18 @@
 // Function takes in two values and an operator (ie. "add", "subtract")
-function calculate(firstValue, secondValue, operation) {
+const calculate = (firstValue, secondValue, operation) => {
   // Return a value calculated based on the operator, as a string
   switch (operation) {
     case "+":
-      return String(Number(firstValue) + Number(secondValue));
-      break;
+      return String(parseInt(firstValue) + parseInt(secondValue));
     case "-":
-      return String(Number(firstValue) - Number(secondValue));
-      break;
+      return String(parseInt(firstValue) - parseInt(secondValue));
     case "*":
-      return String(Number(firstValue) * Number(secondValue));
-      break;
+      return String(parseInt(firstValue) * parseInt(secondValue));
     case "/":
-      return String(Number(firstValue) / Number(secondValue));
-      break;
-    // Return 0 if a different operation is passed in
+      return String(parseInt(firstValue) / parseInt(secondValue));
     default:
       return "Error";
-      break;
   }
-}
+};
 
 exports.calculate = calculate;
