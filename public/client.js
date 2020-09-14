@@ -1,23 +1,26 @@
-const currentCalculation = {
-  firstValue: null,
-  secondValue: null,
-  operation: null,
-};
+class Calculation {
+  constructor(firstValue = null, secondValue = null, operation = null) {
+    (this.firstValue = firstValue),
+      (this.secondValue = secondValue),
+      (this.operation = operation);
+  }
+  clearValues() {
+    this.firstValue = null;
+    this.secondValue = null;
+    this.operation = null;
+  }
+}
 
-const clearValues = () => {
-  currentCalculation.firstValue = null;
-  currentCalculation.secondValue = null;
-  currentCalculation.operation = null;
-};
+const calculation = new Calculation();
 
-const getResultsHistory = async () => {
+const getResults = async () => {
   try {
     const response = await fetch("/results");
     const data = await response.json();
 
     // Empty history display before we add the results
     // https://developer.mozilla.org/en-US/docs/Web/API/Node/removeChild
-    const parent = document.querySelector("#historyListParent");
+    const parent = document.querySelector("#historyListContainer");
     while (parent.firstChild) {
       parent.removeChild(parent.firstChild);
     }
@@ -27,10 +30,10 @@ const getResultsHistory = async () => {
       const li = document.createElement("li");
       li.classList.add("list-group-item");
       li.innerText = `${result.firstValue} ${result.operation} ${result.secondValue} = ${result.result}`;
-      document.querySelector("#historyListParent").append(li);
+      document.querySelector("#historyListContainer").append(li);
     });
   } catch (err) {
-    console.log(err);
+    alert(err);
   }
 };
 
@@ -39,28 +42,28 @@ const clearResultsHistory = async () => {
     await fetch("/results", {
       method: "DELETE",
     });
-    getResultsHistory();
+    getResults();
   } catch (err) {
-    console.error(err);
+    alert(err);
   }
 };
 
-const sendCalculation = async (currentCalculation) => {
+const sendCalculation = async (calculation) => {
   try {
     await fetch("/results", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(currentCalculation),
+      body: JSON.stringify(calculation),
     });
   } catch (err) {
-    console.error(err);
+    alert(err);
   }
 };
 
 const clearAll = () => {
-  clearValues();
+  calculation.clearValues();
   operationButtons.disable();
   calculateButton.disable();
   decimalPointButton.enable();
@@ -133,7 +136,7 @@ const decimalPointButton = {
 
 const handleNumber = (value) => {
   // Handle first value input
-  if (!currentCalculation.firstValue) {
+  if (!calculation.firstValue) {
     if (document.querySelector("#calcDisplay").value === "0") {
       document.querySelector("#calcDisplay").value = value;
       operationButtons.enable();
@@ -142,7 +145,7 @@ const handleNumber = (value) => {
     }
   }
   // Handle second value input
-  if (currentCalculation.firstValue) {
+  if (calculation.firstValue) {
     if (document.querySelector("#calcDisplay").value === "0") {
       document.querySelector("#calcDisplay").value = value;
       calculateButton.enable();
@@ -161,8 +164,8 @@ const handleDecimal = (value) => {
 };
 
 const handleOperation = (value) => {
-  currentCalculation.firstValue = document.querySelector("#calcDisplay").value;
-  currentCalculation.operation = value;
+  calculation.firstValue = document.querySelector("#calcDisplay").value;
+  calculation.operation = value;
   // Reset the display to 0
   document.querySelector("#calcDisplay").value = "0";
   operationButtons.disable();
@@ -171,30 +174,25 @@ const handleOperation = (value) => {
 
 const handleEnter = async () => {
   try {
-    currentCalculation.secondValue = document.querySelector(
-      "#calcDisplay"
-    ).value;
+    calculation.secondValue = document.querySelector("#calcDisplay").value;
     document.querySelector("#calcDisplay").value = "0";
-    await sendCalculation(currentCalculation);
+    await sendCalculation(calculation);
     clearAll();
-    getResultsHistory();
+    getResults();
   } catch (err) {
-    console.log(err);
+    alert(err);
   }
-};
-
-const handleClear = () => {
-  clearAll();
 };
 
 // DOM READY
 document.addEventListener("DOMContentLoaded", () => {
-  getResultsHistory();
+  getResults();
 
   document
     .querySelector("#clearHistoryButton")
     .addEventListener("click", clearResultsHistory);
 
+  // Add event listeners on every button and handle clicks based on button type
   document.querySelectorAll("button").forEach((button) => {
     button.addEventListener("click", (e) => {
       switch (getButtonType(e)) {
@@ -211,7 +209,7 @@ document.addEventListener("DOMContentLoaded", () => {
           handleEnter(e.target.dataset.key);
           break;
         case "clear":
-          handleClear(e.target.dataset.key);
+          clearAll();
           break;
         default:
           break;
