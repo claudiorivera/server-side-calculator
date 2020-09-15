@@ -8,13 +8,7 @@ const results = [];
 // GET /results - Get all calculations
 router.get("/", (req, res) => {
   req.app.io.emit("message", results);
-  res.json(results);
-});
-
-// DELETE /results - Delete calculations from history
-router.delete("/", (req, res) => {
-  results.splice(0, results.length);
-  res.json(results);
+  res.sendStatus(200);
 });
 
 // POST /results - Create a new calculation
@@ -30,7 +24,8 @@ router.post("/", (req, res) => {
       req.body.operation
     ),
   });
-  res.json(results);
+  req.app.io.emit("message", results);
+  res.sendStatus(200);
 });
 
 module.exports = router;
