@@ -4,6 +4,7 @@ This is a simple server-side calculator. The back end uses Express, and the fron
 
 The results display updates in real time when any user adds a calculation (using Socket.io).
 
-# Known Bugs
+# Future Improvements
 
-The client-side input validation is not consistent (ie. buttons are enabled/disabled at incorrect times). I will re-visit this later.
+- Handle keyboard input
+- Handle more than two inputs (ie. "2 + 2 + 2")
