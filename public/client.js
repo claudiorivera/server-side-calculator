@@ -1,4 +1,3 @@
-// Event handlers
 const getResults = async () => {
   try {
     await fetch("/results");
@@ -57,13 +56,13 @@ const handleOperation = (value) => {
 const handleEnter = async () => {
   try {
     calculation.secondValue = document.querySelector("#calcDisplay").value;
-    await sendCalculation(calculation);
+    await calculate(calculation);
   } catch (err) {
     alert(err);
   }
 };
 
-const sendCalculation = async (calculation) => {
+const calculate = async (calculation) => {
   try {
     await fetch("/results", {
       method: "POST",
@@ -108,36 +107,33 @@ const getButtonType = (e) => {
 };
 
 // Class for buttons which provides a method for enabling/disabling
+// Handles id and class selectors
 class Button {
-  constructor(id) {
-    this.element = document.querySelector(`#${id}`);
+  constructor(selector) {
+    this.selectorType = selector.startsWith("#") ? "id" : "class";
+    this.selectorType === "id"
+      ? (this.element = document.querySelector(`${selector}`))
+      : (this.elements = document.querySelectorAll(`${selector}`));
   }
 
   enable = () => {
-    this.element.removeAttribute("disabled");
+    this.selectorType === "id"
+      ? this.element.removeAttribute("disabled")
+      : this.elements.forEach((element) => element.removeAttribute("disabled"));
   };
 
   disable = () => {
-    this.element.setAttribute("disabled", "disabled");
+    this.selectorType === "id"
+      ? this.element.setAttribute("disabled", true)
+      : this.elements.forEach((element) =>
+          element.setAttribute("disabled", true)
+        );
   };
 }
 
-const calculateButton = new Button("calculateButton");
-const decimalPointButton = new Button("decimalPointButton");
-
-// TODO: Refactor the Button class to allow for classes or array of buttons, like these
-const operationButtons = {
-  enable: () => {
-    document.querySelectorAll(".operationButton").forEach((button) => {
-      button.removeAttribute("disabled");
-    });
-  },
-  disable: () => {
-    document.querySelectorAll(".operationButton").forEach((button) => {
-      button.setAttribute("disabled", "disabled");
-    });
-  },
-};
+const calculateButton = new Button("#calculateButton");
+const decimalPointButton = new Button("#decimalPointButton");
+const operationButtons = new Button(".operationButton");
 
 // Event listeners
 document.querySelectorAll("button").forEach((button) => {
@@ -173,16 +169,15 @@ socket.on("message", (data) => {
   while (parent.firstChild) {
     parent.removeChild(parent.firstChild);
   }
-  // Add each result as a list item (bootstrap class)
-  data.forEach((result) => {
+  // Add each result as a list item (with bootstrap class)
+  data.forEach(({ firstValue, operation, secondValue, result }) => {
     const li = document.createElement("li");
     li.classList.add("list-group-item");
-    li.innerText = `${result.firstValue} ${result.operation} ${result.secondValue} = ${result.result}`;
+    li.innerText = `${firstValue} ${operation} ${secondValue} = ${result}`;
     document.querySelector("#historyListContainer").append(li);
   });
 });
 
-// Entry point
 const calculation = {
   firstValue: null,
   secondValue: null,
