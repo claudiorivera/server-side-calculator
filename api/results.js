@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 
-const { calculate } = require("../util/calculate");
+const calculate = require("../util/calculate");
 
 const results = [];
 
@@ -13,16 +13,13 @@ router.get("/", (req, res) => {
 
 // POST /results - Create a new calculation
 router.post("/", (req, res) => {
+  const { firstValue, secondValue, operation } = req.body;
   // Push new object (with computed result) into the history array
-  results.push({
-    firstValue: req.body.firstValue,
-    secondValue: req.body.secondValue,
-    operation: req.body.operation,
-    result: calculate(
-      req.body.firstValue,
-      req.body.secondValue,
-      req.body.operation
-    ),
+  results.unshift({
+    firstValue,
+    secondValue,
+    operation,
+    result: calculate(firstValue, secondValue, operation),
   });
   req.app.io.emit("message", results);
   res.sendStatus(200);

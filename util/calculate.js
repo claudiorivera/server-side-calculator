@@ -3,16 +3,16 @@
 const calculate = (firstValue, secondValue, operation) => {
   switch (operation) {
     case "+":
-      return parseFloat(firstValue) + parseFloat(secondValue);
+      return Number(firstValue) + Number(secondValue);
     case "-":
-      return parseFloat(firstValue) - parseFloat(secondValue);
+      return Number(firstValue) - Number(secondValue);
     case "*":
-      return parseFloat(firstValue) * parseFloat(secondValue);
+      return Number(firstValue) * Number(secondValue);
     case "/":
-      return parseFloat(firstValue) / parseFloat(secondValue);
+      return Number(firstValue) / Number(secondValue);
     default:
       return "Error";
   }
 };
 
-exports.calculate = calculate;
+module.exports = calculate;
